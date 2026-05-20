@@ -1,0 +1,432 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Typography System - Himalayan Artisan Luxury */
+  --font-size: 16px;
+  --font-display: 'Playfair Display', 'Cormorant Garamond', serif;
+  --font-heading: 'DM Serif Display', serif;
+  --font-sans: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  --font-accent: 'Instrument Serif', 'Georgia', serif;
+
+  /* Himalayan Brand Color System */
+  --background: #F5F0E8;
+  --foreground: #2A2A2A;
+  --surface: #FAFAF8;
+  --surface-elevated: #E8EDE4;
+
+  /* Cards & Popovers */
+  --card: #FAFAF8;
+  --card-foreground: #2A2A2A;
+  --popover: #FAFAF8;
+  --popover-foreground: #2A2A2A;
+
+  /* Primary Brand Colors - Deep Himalayan Forest */
+  --primary: #1C3A2B;
+  --primary-light: #2d5016;
+  --primary-foreground: #FAFAF8;
+  --forest: #1C3A2B;
+  --forest-foreground: #FAFAF8;
+
+  /* Secondary - Warm Handcrafted Earth */
+  --secondary: #5C3D1E;
+  --secondary-foreground: #FAFAF8;
+  --earth: #5C3D1E;
+  --earth-foreground: #FAFAF8;
+
+  /* Muted - Mountain Mist & Cream */
+  --muted: #E8EDE4;
+  --muted-foreground: #6b6560;
+  --cream: #F5F0E8;
+  --mist: #E8EDE4;
+
+  /* Accent - Golden Amla Sunlight */
+  --accent: #D4A533;
+  --accent-foreground: #1C3A2B;
+  --amla-gold: #D4A533;
+  --amla-gold-foreground: #1C3A2B;
+
+  /* Text Colors */
+  --charcoal: #2A2A2A;
+  --snow: #FAFAF8;
+
+  /* Status Colors */
+  --success: #1C3A2B;
+  --success-foreground: #FAFAF8;
+  --warning: #D4A533;
+  --warning-foreground: #1C3A2B;
+  --destructive: #8B4339;
+  --destructive-foreground: #FAFAF8;
+
+  /* UI Elements */
+  --border: rgba(92, 61, 30, 0.12);
+  --border-strong: rgba(92, 61, 30, 0.25);
+  --input: transparent;
+  --input-background: #E8EDE4;
+  --switch-background: #D4A533;
+  --ring: #D4A533;
+
+  /* Glassmorphism - Warm Premium */
+  --glass-overlay: rgba(250, 250, 248, 0.85);
+  --glass-border: rgba(92, 61, 30, 0.15);
+
+  /* Texture Overlays */
+  --texture-paper: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuOSIgbnVtT2N0YXZlcz0iNCIgLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbm9pc2UpIiBvcGFjaXR5PSIwLjAzIiAvPjwvc3ZnPg==');
+
+  /* Spacing System - Editorial Rhythm */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+  --spacing-4xl: 6rem;
+  --spacing-5xl: 8rem;
+
+  /* Border Radius - Refined Rounded */
+  --radius: 1rem;
+  --radius-sm: 0.625rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
+  --radius-2xl: 2.25rem;
+
+  /* Shadows - Tactile Layered Depth */
+  --shadow-sm: 0 2px 4px 0 rgba(28, 58, 43, 0.06), 0 1px 2px 0 rgba(28, 58, 43, 0.03);
+  --shadow-md: 0 6px 12px -2px rgba(28, 58, 43, 0.1), 0 3px 6px -3px rgba(28, 58, 43, 0.06);
+  --shadow-lg: 0 12px 24px -4px rgba(28, 58, 43, 0.14), 0 6px 12px -6px rgba(28, 58, 43, 0.08);
+  --shadow-xl: 0 24px 48px -8px rgba(28, 58, 43, 0.18), 0 12px 24px -12px rgba(28, 58, 43, 0.12);
+  --shadow-glow: 0 0 32px 0 rgba(212, 165, 51, 0.2);
+
+  /* Charts */
+  --chart-1: #d4a574;
+  --chart-2: #7a9b76;
+  --chart-3: #e89b5f;
+  --chart-4: #b87a50;
+  --chart-5: #4a6741;
+
+  /* Sidebar */
+  --sidebar: #f5f0e8;
+  --sidebar-foreground: #2a2520;
+  --sidebar-primary: #2d5016;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #ebe6df;
+  --sidebar-accent-foreground: #2a2520;
+  --sidebar-border: rgba(107, 101, 96, 0.15);
+  --sidebar-ring: #7a9b76;
+
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+}
+
+.dark {
+  /* Dark Mode - Forest Retreat Aesthetic */
+  --background: #1C1816;
+  --foreground: #F5F0E8;
+  --surface: #2A2520;
+  --surface-elevated: #3A342E;
+
+  /* Cards & Popovers */
+  --card: #2A2520;
+  --card-foreground: #F5F0E8;
+  --popover: #2A2520;
+  --popover-foreground: #F5F0E8;
+
+  /* Brand Colors - Dark Mode */
+  --primary: #2d5016;
+  --primary-light: #4a6741;
+  --primary-foreground: #F5F0E8;
+  --forest: #2d5016;
+  --forest-foreground: #F5F0E8;
+
+  /* Secondary - Warm Earth Tones */
+  --secondary: #7A5C3D;
+  --secondary-foreground: #F5F0E8;
+  --earth: #7A5C3D;
+  --earth-foreground: #F5F0E8;
+
+  /* Muted */
+  --muted: #3A342E;
+  --muted-foreground: #C8BFB5;
+  --cream: #2A2520;
+  --mist: #3A342E;
+
+  /* Accent - Golden Glow */
+  --accent: #E5B860;
+  --accent-foreground: #1C1816;
+  --amla-gold: #E5B860;
+  --amla-gold-foreground: #1C1816;
+
+  /* Text Colors */
+  --charcoal: #F5F0E8;
+  --snow: #2A2520;
+
+  /* Status Colors */
+  --success: #4a6741;
+  --success-foreground: #F5F0E8;
+  --warning: #E5B860;
+  --warning-foreground: #1C1816;
+  --destructive: #B8594E;
+  --destructive-foreground: #F5F0E8;
+
+  /* UI Elements */
+  --border: rgba(122, 92, 61, 0.15);
+  --border-strong: rgba(122, 92, 61, 0.3);
+  --input: rgba(122, 92, 61, 0.1);
+  --input-background: #3A342E;
+  --switch-background: #E5B860;
+  --ring: #E5B860;
+
+  /* Glassmorphism */
+  --glass-overlay: rgba(42, 37, 32, 0.85);
+  --glass-border: rgba(245, 240, 232, 0.1);
+
+  /* Shadows - Deeper Atmospheric */
+  --shadow-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.4), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 6px 12px -2px rgba(0, 0, 0, 0.5), 0 3px 6px -3px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 12px 24px -4px rgba(0, 0, 0, 0.6), 0 6px 12px -6px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 24px 48px -8px rgba(0, 0, 0, 0.7), 0 12px 24px -12px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 32px 0 rgba(229, 184, 96, 0.3);
+
+  /* Charts */
+  --chart-1: #e8b587;
+  --chart-2: #9db399;
+  --chart-3: #f0ab70;
+  --chart-4: #d4956a;
+  --chart-5: #7a9b76;
+
+  /* Sidebar */
+  --sidebar: #2b2520;
+  --sidebar-foreground: #f5f0e8;
+  --sidebar-primary: #7a9b76;
+  --sidebar-primary-foreground: #1a1512;
+  --sidebar-accent: #3a3330;
+  --sidebar-accent-foreground: #f5f0e8;
+  --sidebar-border: rgba(181, 169, 159, 0.15);
+  --sidebar-ring: #9db399;
+}
+
+@theme inline {
+  /* Base Colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+
+  /* Cards & Popovers */
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  /* Primary Colors - Forest */
+  --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-forest: var(--forest);
+  --color-forest-foreground: var(--forest-foreground);
+
+  /* Secondary Colors - Earth */
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-earth: var(--earth);
+  --color-earth-foreground: var(--earth-foreground);
+
+  /* Muted - Cream & Mist */
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-cream: var(--cream);
+  --color-mist: var(--mist);
+
+  /* Accent Colors - Amla Gold */
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-amla-gold: var(--amla-gold);
+  --color-amla-gold-foreground: var(--amla-gold-foreground);
+
+  /* Text Colors */
+  --color-charcoal: var(--charcoal);
+  --color-snow: var(--snow);
+
+  /* Status Colors */
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  /* UI Elements */
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+
+  /* Glassmorphism */
+  --color-glass-overlay: var(--glass-overlay);
+  --color-glass-border: var(--glass-border);
+
+  /* Charts */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Sidebar */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    cursor: none;
+  }
+
+  @media (max-width: 1024px) {
+    body {
+      cursor: auto;
+    }
+  }
+
+  /* Override default cursors on interactive elements */
+  button, a, [role="button"], input[type="submit"], input[type="button"] {
+    cursor: none;
+  }
+
+  @media (max-width: 1024px) {
+    button, a, [role="button"], input[type="submit"], input[type="button"] {
+      cursor: pointer;
+    }
+  }
+
+  input[type="range"].slider {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+  }
+
+  input[type="range"].slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary);
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  input[type="range"].slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary);
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  input[type="range"].slider::-webkit-slider-runnable-track {
+    height: 8px;
+    border-radius: 4px;
+  }
+
+  input[type="range"].slider::-moz-range-track {
+    height: 8px;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 640px) {
+    .masonry-grid {
+      column-count: 2 !important;
+    }
+  }
+
+  @media (max-width: 1024px) and (min-width: 641px) {
+    .masonry-grid {
+      column-count: 3 !important;
+    }
+  }
+
+  /**
+  * Default typography styles for HTML elements (h1-h4, p, label, button, input).
+  * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.
+  */
+
+  html {
+    font-size: var(--font-size);
+    background-image: var(--texture-paper);
+    background-attachment: fixed;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  h4 {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  label {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  button {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  input {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.5;
+  }
+}

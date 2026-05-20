@@ -1,0 +1,413 @@
+Design and develop a premium modern Shop Page UI for an organic farm-fresh ecommerce brand.
+The current shop experience feels outdated, static, generic, and visually weak. Completely redesign the browsing experience with modern ecommerce interactions, immersive visuals, smooth animations, and premium storytelling-focused UI.
+
+The final result should feel like:
+
+luxury organic marketplace
+modern handcrafted ecommerce
+premium sustainable lifestyle brand
+emotionally warm and trustworthy
+
+The interface must feel polished, cinematic, responsive, and highly interactive — NOT like a generic Bootstrap ecommerce template.
+
+OVERALL DESIGN STYLE
+Visual Direction
+Organic luxury aesthetic
+Earthy premium tones
+Warm whites
+Muted greens
+Soft beige
+Natural brown accents
+Elegant typography
+Glassmorphism where appropriate
+Soft shadows
+Layered depth
+Cinematic product imagery
+Smooth transitions
+Rich hover interactions
+Design Keywords
+
+Premium organic ecommerce, artisanal grocery UI, modern sustainable marketplace, handcrafted luxury shopping experience.
+
+SHOP PAGE STRUCTURE
+1. SHOP HERO SECTION
+Goal
+
+Immediately create emotional impact and premium brand perception.
+
+Requirements
+Full-width cinematic banner
+Organic produce photography
+Farmers harvesting / fresh ingredients imagery
+Subtle parallax scrolling
+Dark gradient overlay for readability
+Floating organic decorative elements
+Smooth entrance animation
+Content
+
+Heading examples:
+
+“Fresh Organic Essentials”
+“Farm Fresh Delivered Daily”
+“Naturally Pure. Beautifully Fresh.”
+Subheading
+
+Short premium line about freshness, sustainability, and handcrafted quality.
+
+Add
+Breadcrumb navigation
+Floating trust badges:
+100% Organic
+No Preservatives
+Farm Fresh
+Harvested Daily
+2. FILTER + PRODUCT LAYOUT
+Desktop Layout
+Left sticky filter sidebar
+Right dynamic product grid
+Mobile Layout
+Sticky bottom “Filter & Sort” button
+Slide-in filter drawer
+Touch-friendly interactions
+
+Spacing should feel breathable and premium.
+
+3. FILTER SIDEBAR REDESIGN
+CURRENT PROBLEM
+
+Current sidebar is just:
+
+plain checkboxes
+simple price slider
+no active feedback
+visually dead
+New Goal
+
+Create a highly interactive premium filtering experience.
+
+SIDEBAR DESIGN
+Requirements
+Sticky while scrolling
+Rounded soft card container
+Glassmorphism or elegant soft background
+Section dividers
+Accordion-style expandable sections
+Smooth animations
+Elegant typography hierarchy
+Hover interactions
+FILTER SECTIONS
+Include:
+Categories
+Price Range
+Organic Certifications
+Freshness Level
+Dietary Preferences
+Customer Ratings
+ACTIVE FILTER EXPERIENCE
+Requirements
+
+When filters are selected:
+
+show animated active filter chips at top
+examples:
+[Organic ✓]
+[Under ₹500 ✓]
+[Vegetables ✓]
+Chips Must:
+animate in smoothly
+glow subtly
+be removable individually
+support hover effects
+
+Add:
+
+“Clear All Filters” CTA
+PRICE RANGE SLIDER
+CURRENT PROBLEM
+
+No dynamic price display.
+
+REDESIGN
+
+Create:
+
+premium dual-thumb range slider
+animated movement
+gradient active track
+smooth interaction feedback
+Must show:
+
+₹250 — ₹1200 dynamically in real-time.
+
+Optional:
+Preset chips:
+
+Under ₹500
+₹500–₹1000
+Premium Selection
+CATEGORY FILTERS
+Replace Plain Checkboxes With:
+
+Interactive category cards.
+
+Each Category Card Includes:
+icon or image
+elegant label
+hover scale effect
+selected state glow
+animated border
+Categories:
+Fruits
+Vegetables
+Dairy
+Homemade Goods
+Organic Staples
+Beverages
+RATING FILTER
+Requirements
+
+Interactive star-rating selector:
+★★★★★ & up
+
+Include:
+
+rating count
+smooth hover transitions
+selected state animation
+4. SORT BAR REDESIGN
+CURRENT PROBLEM
+
+Ugly unstyled dropdown breaking UI consistency.
+
+New Goal
+
+Make sorting feel premium and integrated.
+
+SORT BAR FEATURES
+Include:
+Result count
+Styled sort dropdown
+Grid/List view toggle
+Active filter summary
+SORT DROPDOWN DESIGN
+Requirements
+Custom dropdown UI
+Glassmorphism background
+Rounded corners
+Smooth opening animation
+Elegant hover states
+Premium typography
+Sort Options
+Popularity
+Fresh Arrivals
+Price: Low to High
+Price: High to Low
+Customer Rating
+
+Avoid default browser select styling completely.
+
+5. PRODUCT GRID REDESIGN
+CURRENT PROBLEM
+
+Static product cards with weak hierarchy and no interaction.
+
+New Goal
+
+Create visually immersive premium product browsing.
+
+PRODUCT GRID LAYOUT
+Desktop
+
+3–4 products per row
+
+Tablet
+
+2 products per row
+
+Mobile
+
+1–2 products per row
+
+Requirements
+responsive grid
+dynamic spacing
+subtle asymmetry allowed
+smooth reveal animations
+6. PRODUCT CARD REDESIGN
+CURRENT PROBLEM
+
+Basic image + title + price + add-to-cart.
+
+New Goal
+
+Luxury ecommerce cards with interaction-rich UI.
+
+PRODUCT CARD STYLE
+Requirements
+large premium product image
+rounded corners
+layered shadows
+soft hover elevation
+subtle texture overlays
+premium spacing
+HOVER EFFECTS
+Add:
+image zoom
+gradient glow
+floating animation
+smooth button reveals
+card elevation
+soft lighting effects
+PRODUCT INFORMATION
+Include:
+Product Name
+Freshness descriptor
+Current price
+Original price
+Ratings
+Review count
+PRODUCT BADGES
+Examples:
+Organic
+Fresh Today
+Bestseller
+Homemade
+Limited Harvest
+Badge Style
+floating badge design
+soft gradients
+premium pill styling
+subtle animation
+QUICK ACTIONS
+On Hover Show:
+Quick View
+Wishlist
+Compare
+Add to Cart
+Requirements
+smooth fade-in
+icon buttons
+tooltip interactions
+premium microanimations
+7. QUICK VIEW MODAL
+Requirements
+
+Premium modal with:
+
+product image gallery
+quantity selector
+freshness info
+delivery estimate
+nutrition highlights
+animated add-to-cart CTA
+Effects
+blurred background overlay
+scale-in animation
+layered depth
+8. PRODUCT LOADING EXPERIENCE
+CURRENT PROBLEM
+
+Text pagination feels outdated.
+
+New Goal
+
+Seamless browsing experience.
+
+Replace Pagination With:
+
+Either:
+
+Infinite scroll
+
+OR
+
+Animated “Load More Products” button
+Add:
+skeleton loading cards
+lazy-loaded images
+smooth product fade-in animations
+seamless scrolling experience
+
+Avoid traditional numbered pagination entirely.
+
+9. EMPTY STATE DESIGN
+Requirements
+
+If no products match:
+
+show elegant illustration
+suggest related categories
+provide “Clear Filters” CTA
+Example Message
+
+“No fresh matches found — try adjusting your filters.”
+
+10. MOBILE EXPERIENCE
+Requirements
+
+Mobile UI must feel app-like and premium.
+
+Include:
+sticky bottom filter button
+slide-up filter drawer
+touch-friendly spacing
+swipe-friendly cards
+optimized quick-add interactions
+11. MICROINTERACTIONS
+Add:
+hover glows
+ripple click effects
+floating hover motion
+animated wishlist heart
+smooth transitions
+subtle card tilt
+cart confirmation animation
+12. TYPOGRAPHY
+Fonts
+
+Headings:
+
+Playfair Display
+DM Serif
+Cormorant
+
+Body:
+
+Inter
+Manrope
+Poppins
+
+Typography should feel elegant and premium.
+
+13. PERFORMANCE REQUIREMENTS
+Ensure:
+lazy loading
+optimized animations
+smooth scrolling
+no lag
+responsive rendering
+14. FINAL EXPERIENCE GOAL
+
+The Shop Page should feel:
+
+premium
+handcrafted
+organic
+immersive
+emotionally warm
+modern
+highly interactive
+conversion optimized
+
+The user should instantly feel:
+“This is a high-quality organic lifestyle brand, not a generic grocery website.”
+
+Avoid:
+
+generic ecommerce layouts
+flat product cards
+default dropdowns
+Bootstrap-like UI
+overcrowded spacing
+outdated pagination
+lifeless interactions
