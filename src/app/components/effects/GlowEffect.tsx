@@ -1,5 +1,4 @@
-import { motion } from 'motion/react';
-import { useState } from 'react';
+import React, { isValidElement } from 'react';
 
 interface GlowEffectProps {
   children: React.ReactNode;
@@ -8,27 +7,16 @@ interface GlowEffectProps {
   intensity?: number;
 }
 
-export function GlowEffect({
-  children,
-  className = '',
-  glowColor = '#4a6741',
-  intensity = 20
-}: GlowEffectProps) {
-  const [isHovered, setIsHovered] = useState(false);
+export function GlowEffect({ children }: GlowEffectProps) {
+  // We remove the square block-wrapper glow and replace it with 
+  // a fluid, premium CSS shadow and brightness increase that perfectly hugs the element.
+  if (isValidElement(children)) {
+    const childClassName = children.props.className || '';
+    return React.cloneElement(children, {
+      ...children.props,
+      className: `${childClassName} hover:shadow-[0_8px_30px_rgba(28,58,43,0.15)] hover:brightness-105 transition-all duration-400 ease-out`.trim()
+    } as React.HTMLAttributes<HTMLElement>);
+  }
 
-  return (
-    <motion.div
-      className={`relative ${className}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      animate={{
-        boxShadow: isHovered
-          ? `0 0 ${intensity}px ${intensity / 2}px ${glowColor}40, 0 0 ${intensity * 2}px ${intensity}px ${glowColor}20`
-          : `0 0 0px 0px ${glowColor}00`,
-      }}
-      transition={{ duration: 0.3, ease: [0.25, 0.4, 0.25, 1] }}
-    >
-      {children}
-    </motion.div>
-  );
+  return <>{children}</>;
 }

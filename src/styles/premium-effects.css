@@ -663,3 +663,147 @@
 .highlight-hover:hover::after {
   opacity: 1;
 }
+
+/* ==========================================================
+   HERO PREMIUM BUTTONS (STABLE, CINEMATIC HOVER)
+   ========================================================== */
+
+.hero-btn-primary {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* stable fixed gap */
+  padding: 1rem 2.25rem;
+  background: linear-gradient(to right, #d4a533, #c49a2e);
+  color: white;
+  border-radius: 9999px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  
+  /* Stable motion setup */
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  
+  /* Premium cinematic easing */
+  transition: 
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    opacity 0.35s ease;
+}
+
+/* Soft atmospheric glow via pseudo-element */
+.hero-btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: inherit;
+  filter: blur(28px);
+  background-color: rgba(214, 168, 52, 0.35); /* warm organic gold */
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 0.35s ease; /* opacity transition only */
+}
+
+.hero-btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.hero-btn-primary:hover::before {
+  opacity: 0.55;
+}
+
+.hero-btn-primary:active {
+  transform: translateY(0px) scale(0.99);
+}
+
+/* Icon interaction */
+.hero-btn-primary svg {
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-btn-primary:hover svg {
+  transform: translateX(4px) rotate(-6deg);
+}
+
+/* ----------------------------------------------------------
+   HERO SECONDARY BUTTON
+   ---------------------------------------------------------- */
+
+.hero-btn-secondary {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* stable fixed gap */
+  padding: 1rem 2.25rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 9999px;
+  font-weight: 600;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  
+  /* Stable motion setup */
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  
+  /* Premium cinematic easing */
+  transition: 
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    opacity 0.35s ease;
+}
+
+/* Soft atmospheric glow for secondary */
+.hero-btn-secondary::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: inherit;
+  filter: blur(28px);
+  background-color: rgba(255, 255, 255, 0.2); 
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 0.35s ease;
+}
+
+.hero-btn-secondary:hover {
+  transform: translateY(-2px) scale(1.02);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.hero-btn-secondary:hover::before {
+  opacity: 0.55;
+}
+
+.hero-btn-secondary:active {
+  transform: translateY(0px) scale(0.99);
+}
+
+.hero-btn-secondary svg {
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-btn-secondary:hover svg {
+  transform: translateX(4px) rotate(-6deg);
+}
+
+/* ----------------------------------------------------------
+   HERO BACKGROUND CINEMATIC HOVER
+   ---------------------------------------------------------- */
+.hero-bg-cinematic {
+  transition: filter 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-section-container:hover .hero-bg-cinematic {
+  filter: brightness(0.65) contrast(1.05) saturate(1.1) !important;
+}

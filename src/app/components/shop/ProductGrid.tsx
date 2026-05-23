@@ -2,26 +2,11 @@ import { motion } from "motion/react";
 import ProductCard from "./ProductCard";
 import { Loader2, Leaf, Sparkles } from "lucide-react";
 
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  originalPrice?: number;
-  image: string;
-  rating: number;
-  reviews: number;
-  badge?: string;
-  inStock: boolean;
-  nutritionHighlights?: string[];
-  deliveryDays?: number;
-}
+import { Product } from '../../contexts/WishlistContext';
 
 interface ProductGridProps {
   products: Product[];
   onQuickView: (product: Product) => void;
-  wishlist?: Set<number>;
-  onToggleWishlist?: (productId: number) => void;
   isLoading?: boolean;
   onLoadMore?: () => void;
   hasMore?: boolean;
@@ -58,7 +43,7 @@ function SkeletonCard() {
   );
 }
 
-export default function ProductGrid({ products, onQuickView, wishlist, onToggleWishlist, isLoading, onLoadMore, hasMore }: ProductGridProps) {
+export default function ProductGrid({ products, onQuickView, isLoading, onLoadMore, hasMore }: ProductGridProps) {
   // Empty State
   if (products.length === 0 && !isLoading) {
     return (
@@ -160,8 +145,6 @@ export default function ProductGrid({ products, onQuickView, wishlist, onToggleW
             <ProductCard
               product={product}
               onQuickView={onQuickView}
-              isWishlisted={wishlist?.has(product.id)}
-              onToggleWishlist={() => onToggleWishlist?.(product.id)}
             />
           </motion.div>
         ))}

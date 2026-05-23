@@ -7,7 +7,6 @@ import { HomePage } from './pages/HomePage';
 import { AllProductsPage } from './pages/AllProductsPage';
 import { CategoryPage } from './pages/CategoryPage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
-import { OurStoryPage } from './pages/OurStoryPage';
 import { BlogPage } from './pages/BlogPage';
 import { BlogDetailPage } from './pages/BlogDetailPage';
 import { ContactPage } from './pages/ContactPage';
@@ -18,10 +17,14 @@ import { SearchResultsPage } from './pages/SearchResultsPage';
 import { OrderSuccessPage } from './pages/OrderSuccessPage';
 import { FAQPage } from './pages/FAQPage';
 import { AnnouncementBar } from './components/layout/AnnouncementBar';
-import { WhatsAppButton } from './components/ui/WhatsAppButton';
 import CustomCursor from './components/ui/CustomCursor';
 import { SmoothScroll } from './components/animations/SmoothScroll';
-
+import { AuthProvider } from './contexts/AuthContext';
+import { WishlistProvider } from './contexts/WishlistContext';
+import { ToastProvider } from './contexts/ToastContext';
+import { ProtectedRoute } from './components/auth/ProtectedRoute';
+import { DashboardPage } from './pages/DashboardPage';
+import { WishlistPage } from './pages/WishlistPage';
 function AnimatedRoutes() {
   const location = useLocation();
 
@@ -44,7 +47,6 @@ function AnimatedRoutes() {
           <Route path="/products" element={<AllProductsPage />} />
           <Route path="/category/:categorySlug" element={<CategoryPage />} />
           <Route path="/product/:productSlug" element={<ProductDetailPage />} />
-          <Route path="/our-story" element={<OurStoryPage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:blogSlug" element={<BlogDetailPage />} />
           <Route path="/contact" element={<ContactPage />} />
@@ -54,6 +56,15 @@ function AnimatedRoutes() {
           <Route path="/search" element={<SearchResultsPage />} />
           <Route path="/order-success" element={<OrderSuccessPage />} />
           <Route path="/faq" element={<FAQPage />} />
+          <Route path="/wishlist" element={<WishlistPage />} />
+          <Route 
+            path="/dashboard" 
+            element={
+              <ProtectedRoute>
+                <DashboardPage />
+              </ProtectedRoute>
+            } 
+          />
         </Routes>
       </motion.div>
     </AnimatePresence>
@@ -62,18 +73,23 @@ function AnimatedRoutes() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <CustomCursor />
-      <SmoothScroll />
-      <div className="relative min-h-screen bg-[#f5f0e8]">
-        <AnnouncementBar />
-        <Header />
-        <main className="relative">
-          <AnimatedRoutes />
-        </main>
-        <Footer />
-        <WhatsAppButton />
-      </div>
-    </BrowserRouter>
+    <AuthProvider>
+      <ToastProvider>
+        <WishlistProvider>
+          <BrowserRouter>
+            <CustomCursor />
+            <SmoothScroll />
+            <div className="relative min-h-screen bg-[#f5f0e8]">
+              <AnnouncementBar />
+              <Header />
+              <main className="relative">
+                <AnimatedRoutes />
+              </main>
+              <Footer />
+            </div>
+          </BrowserRouter>
+        </WishlistProvider>
+      </ToastProvider>
+    </AuthProvider>
   );
 }

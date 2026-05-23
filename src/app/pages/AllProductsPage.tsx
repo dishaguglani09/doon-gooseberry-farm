@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router';
-import { SlidersHorizontal, Star, Grid3x3, List, Heart, ShoppingCart, Leaf } from 'lucide-react';
-import { motion } from 'motion/react';
+import { SlidersHorizontal, Star, Grid3x3, List, Heart, ShoppingCart, Leaf, ChevronDown, Check } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { StaggerChildren, StaggerItem } from '../components/animations/StaggerChildren';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { products as allProducts } from '../data/products';
@@ -11,6 +11,15 @@ export function AllProductsPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
   const [sortBy, setSortBy] = useState('featured');
+  const [isSortOpen, setIsSortOpen] = useState(false);
+
+  const sortOptions = [
+    { value: 'featured', label: 'Featured' },
+    { value: 'price-low', label: 'Price: Low to High' },
+    { value: 'price-high', label: 'Price: High to Low' },
+    { value: 'rating', label: 'Customer Rating' },
+    { value: 'newest', label: 'Newest Arrivals' },
+  ];
 
   const products = allProducts;
 
@@ -136,40 +145,93 @@ export function AllProductsPage() {
           {/* Products Grid */}
           <main className="flex-1">
             {/* Toolbar */}
-            <div className="bg-white rounded-2xl p-4 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
+            <div className="bg-white/80 backdrop-blur-xl rounded-[24px] p-4 mb-8 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm border border-[rgba(139,125,107,0.15)] relative z-30">
               <div className="flex items-center gap-2">
-                <span className="text-[#6b6560]">Showing</span>
-                <span className="font-semibold text-[#2a2a2a]">{filteredProducts.length}</span>
-                <span className="text-[#6b6560]">products</span>
+                <span className="text-sm font-medium text-[#6b6560]">Showing</span>
+                <span className="px-3 py-1 bg-[#f5f0e8] rounded-full font-semibold text-[#1c3a2b]">{filteredProducts.length}</span>
+                <span className="text-sm font-medium text-[#6b6560]">products</span>
               </div>
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                  <span className="text-sm text-[#6b6560]">Sort by:</span>
-                  <select
-                    value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value)}
-                    className="px-4 py-2 rounded-lg border border-[rgba(139,125,107,0.2)] focus:outline-none focus:ring-2 focus:ring-[#1c3a2b]"
-                  >
-                    <option value="featured">Featured</option>
-                    <option value="price-low">Price: Low to High</option>
-                    <option value="price-high">Price: High to Low</option>
-                    <option value="rating">Rating</option>
-                    <option value="newest">Newest</option>
-                  </select>
+              
+              <div className="flex items-center gap-6">
+                {/* Custom Sort Dropdown */}
+                <div className="flex items-center gap-3">
+                  <span className="text-sm font-medium text-[#6b6560]">Sort by:</span>
+                  <div className="relative">
+                    <motion.button
+                      onClick={() => setIsSortOpen(!isSortOpen)}
+                      className="flex items-center justify-between w-48 px-5 py-2.5 bg-white border border-[rgba(139,125,107,0.2)] rounded-full focus:outline-none focus:ring-2 focus:ring-[#1c3a2b]/20 hover:border-[#4a6741] transition-all duration-300 shadow-sm"
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <span className="font-semibold text-[#2a2a2a] text-sm">
+                        {sortOptions.find(opt => opt.value === sortBy)?.label}
+                      </span>
+                      <ChevronDown className={`w-4 h-4 text-[#6b6560] transition-transform duration-300 ${isSortOpen ? 'rotate-180 text-[#1c3a2b]' : ''}`} />
+                    </motion.button>
+
+                    <AnimatePresence>
+                      {isSortOpen && (
+                        <>
+                          <div 
+                            className="fixed inset-0 z-40" 
+                            onClick={() => setIsSortOpen(false)} 
+                          />
+                          <motion.div
+                            initial={{ opacity: 0, y: -10, scale: 0.98 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                            transition={{ duration: 0.25, ease: "easeOut" }}
+                            className="absolute right-0 top-full mt-2 w-56 bg-white/95 backdrop-blur-xl border border-[rgba(139,125,107,0.15)] rounded-[20px] shadow-[0_12px_32px_rgba(0,0,0,0.06)] p-2 z-50 overflow-hidden"
+                          >
+                            {sortOptions.map((option) => (
+                              <button
+                                key={option.value}
+                                onClick={() => {
+                                  setSortBy(option.value);
+                                  setIsSortOpen(false);
+                                }}
+                                className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
+                                  sortBy === option.value 
+                                    ? 'bg-[#f0f4ef] text-[#1c3a2b]' 
+                                    : 'text-[#6b6560] hover:bg-[#f5f0e8] hover:text-[#2a2a2a]'
+                                }`}
+                              >
+                                {option.label}
+                                {sortBy === option.value && <Check className="w-4 h-4 text-[#4a6741]" />}
+                              </button>
+                            ))}
+                          </motion.div>
+                        </>
+                      )}
+                    </AnimatePresence>
+                  </div>
                 </div>
-                <div className="flex gap-2">
-                  <button
+
+                <div className="w-px h-8 bg-[rgba(139,125,107,0.2)] hidden sm:block"></div>
+
+                {/* Grid/List Toggle */}
+                <div className="flex gap-1.5 p-1 bg-[#f5f0e8] rounded-full border border-[rgba(139,125,107,0.1)] shadow-inner">
+                  <motion.button
                     onClick={() => setViewMode('grid')}
-                    className={`p-2 rounded-lg ${viewMode === 'grid' ? 'bg-[#1c3a2b] text-white' : 'bg-[#f5f0e8] text-[#2a2a2a]'}`}
+                    className={`p-2 rounded-full transition-all duration-300 relative ${viewMode === 'grid' ? 'text-white shadow-md' : 'text-[#8b7d6b] hover:text-[#2a2a2a]'}`}
+                    whileHover={viewMode !== 'grid' ? { scale: 1.05 } : {}}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <Grid3x3 className="w-5 h-5" />
-                  </button>
-                  <button
+                    {viewMode === 'grid' && (
+                      <motion.div layoutId="viewModeBg" className="absolute inset-0 bg-[#1c3a2b] rounded-full" transition={{ type: "spring", stiffness: 300, damping: 25 }} />
+                    )}
+                    <Grid3x3 className="w-4 h-4 relative z-10" />
+                  </motion.button>
+                  <motion.button
                     onClick={() => setViewMode('list')}
-                    className={`p-2 rounded-lg ${viewMode === 'list' ? 'bg-[#1c3a2b] text-white' : 'bg-[#f5f0e8] text-[#2a2a2a]'}`}
+                    className={`p-2 rounded-full transition-all duration-300 relative ${viewMode === 'list' ? 'text-white shadow-md' : 'text-[#8b7d6b] hover:text-[#2a2a2a]'}`}
+                    whileHover={viewMode !== 'list' ? { scale: 1.05 } : {}}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <List className="w-5 h-5" />
-                  </button>
+                    {viewMode === 'list' && (
+                      <motion.div layoutId="viewModeBg" className="absolute inset-0 bg-[#1c3a2b] rounded-full" transition={{ type: "spring", stiffness: 300, damping: 25 }} />
+                    )}
+                    <List className="w-4 h-4 relative z-10" />
+                  </motion.button>
                 </div>
               </div>
             </div>

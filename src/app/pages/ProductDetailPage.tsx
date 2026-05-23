@@ -9,11 +9,15 @@ import { GlowEffect } from '../components/effects/GlowEffect';
 import { RippleButton } from '../components/effects/RippleButton';
 import { getProductBySlug, getRelatedProducts } from '../data/products';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { useWishlist } from '../contexts/WishlistContext';
+import { useToast } from '../contexts/ToastContext';
 
 export function ProductDetailPage() {
   const { productSlug } = useParams();
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
+  const { toggleWishlist, isInWishlist } = useWishlist();
+  const { showToast } = useToast();
 
   // Load product from database based on slug
   const product = getProductBySlug(productSlug || '');
@@ -130,46 +134,62 @@ export function ProductDetailPage() {
             <div className="mb-8">
               <label className="block text-sm font-semibold text-[#2a2a2a] mb-3">Quantity</label>
               <div className="flex items-center gap-4">
-                <div className="flex items-center border-2 border-[rgba(139,125,107,0.2)] rounded-full overflow-hidden">
+                <div className="flex items-center bg-white border border-[rgba(139,125,107,0.2)] rounded-full shadow-sm p-1">
                   <motion.button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="p-3 hover:bg-[#f5f0e8] transition-colors"
-                    whileTap={{ scale: 0.9 }}
+                    className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#f5f0e8] text-[#2a2a2a] transition-colors"
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <Minus className="w-5 h-5" />
+                    <Minus className="w-4 h-4" />
                   </motion.button>
                   <motion.span
                     key={quantity}
-                    initial={{ scale: 1.2 }}
-                    animate={{ scale: 1 }}
-                    className="px-6 font-semibold"
+                    initial={{ scale: 1.2, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    className="w-12 text-center font-semibold text-[#2a2a2a]"
                   >
                     {quantity}
                   </motion.span>
                   <motion.button
                     onClick={() => setQuantity(quantity + 1)}
-                    className="p-3 hover:bg-[#f5f0e8] transition-colors"
-                    whileTap={{ scale: 0.9 }}
+                    className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#f5f0e8] text-[#2a2a2a] transition-colors"
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <Plus className="w-5 h-5" />
+                    <Plus className="w-4 h-4" />
                   </motion.button>
                 </div>
-                <GlowEffect glowColor="#1c3a2b" intensity={30}>
-                  <RippleButton className="flex-1 px-10 py-5 bg-gradient-to-r from-[#1c3a2b] to-[#2a4a3b] hover:from-[#2a4a3b] hover:to-[#1c3a2b] text-white rounded-full font-semibold transition-all duration-500 shadow-[0_8px_30px_rgba(28,58,43,0.3)] hover:shadow-[0_12px_40px_rgba(28,58,43,0.5)]">
-                    Add to Cart
-                  </RippleButton>
-                </GlowEffect>
-                <motion.button
-                  className="p-4 border-2 border-[rgba(139,125,107,0.2)] rounded-full hover:bg-[#f5f0e8] transition-colors"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
+                
+                <motion.button 
+                  className="flex-1 px-8 h-[52px] bg-gradient-to-r from-[#1c3a2b] to-[#2a4a3b] text-white rounded-full font-semibold text-[15px] shadow-[0_4px_20px_rgba(28,58,43,0.2)] transition-all duration-400 ease-out hover:-translate-y-[2px] hover:shadow-[0_8px_30px_rgba(28,58,43,0.3)] hover:brightness-105 active:scale-[0.98]"
+                  onClick={() => showToast('Added to cart successfully!', 'success')}
                 >
-                  <Heart className="w-5 h-5" />
+                  Add to Cart
                 </motion.button>
+
                 <motion.button
-                  className="p-4 border-2 border-[rgba(139,125,107,0.2)] rounded-full hover:bg-[#f5f0e8] transition-colors"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
+                  onClick={() => {
+                    toggleWishlist(product);
+                  }}
+                  className={`w-[52px] h-[52px] flex items-center justify-center rounded-full shadow-sm border transition-all duration-400 ease-out hover:-translate-y-[2px] hover:shadow-md active:scale-[0.95] ${
+                    isInWishlist(product.id) 
+                      ? 'bg-red-50 border-red-100 text-red-500' 
+                      : 'bg-white border-[rgba(139,125,107,0.2)] text-[#6b6560] hover:text-[#2a2a2a]'
+                  }`}
+                >
+                  <motion.div
+                    animate={isInWishlist(product.id) ? { scale: [1, 1.2, 1] } : { scale: 1 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+                  >
+                    <Heart className="w-5 h-5" fill={isInWishlist(product.id) ? "currentColor" : "none"} />
+                  </motion.div>
+                </motion.button>
+
+                <motion.button
+                  onClick={() => {
+                    navigator.clipboard.writeText(window.location.href);
+                    showToast('Link copied to clipboard!', 'info');
+                  }}
+                  className="w-[52px] h-[52px] flex items-center justify-center rounded-full bg-white border border-[rgba(139,125,107,0.2)] text-[#6b6560] hover:text-[#2a2a2a] shadow-sm transition-all duration-400 ease-out hover:-translate-y-[2px] hover:shadow-md active:scale-[0.95]"
                 >
                   <Share2 className="w-5 h-5" />
                 </motion.button>

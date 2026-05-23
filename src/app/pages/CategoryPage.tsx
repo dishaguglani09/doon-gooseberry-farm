@@ -163,22 +163,25 @@ export function CategoryPage() {
 
         {/* Related Categories */}
         <div className="mt-20">
-          <h2 className="font-serif text-3xl text-[#2a2a2a] mb-8">Explore Other Categories</h2>
+          <h2 className="font-serif text-[2rem] text-[#2a2a2a] mb-8">Explore Other Categories</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {Object.entries(categoryData)
               .filter(([slug]) => slug !== categorySlug)
               .map(([slug, cat]) => (
-                <TiltCard key={slug} tiltIntensity={10} scaleIntensity={1.05} shadowIntensity={0.2}>
-                  <Link to={`/category/${slug}`} className="group text-center block">
+                <TiltCard key={slug} tiltIntensity={5} scaleIntensity={1.02} shadowIntensity={0.1}>
+                  <Link to={`/category/${slug}`} className="group text-center block h-full">
                     <motion.div
-                      className="glass-card rounded-3xl p-8 shadow-lg"
-                      whileHover={{ y: -8 }}
-                      transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
+                      className="bg-white rounded-[24px] p-5 border border-[rgba(139,125,107,0.1)] transition-all duration-400 ease-out shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:-translate-y-[4px] hover:shadow-[0_12px_28px_rgba(28,58,43,0.08)] hover:bg-[#fcfbf9] h-full flex flex-col"
                     >
-                      <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-[#4a6741] to-[#5a7851] rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                        <cat.icon className="w-12 h-12 text-white" strokeWidth={1.5} />
+                      <div className="aspect-[4/3] rounded-[16px] overflow-hidden mb-4 relative bg-[#f5f0e8]">
+                        <ImageWithFallback
+                          src={categoryImages[slug]}
+                          alt={cat.name}
+                          className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.08]"
+                        />
                       </div>
-                      <h3 className="font-semibold text-[#2a2a2a]">{cat.name}</h3>
+                      <h3 className="font-semibold text-[15px] text-[#2a2a2a] leading-tight">{cat.name}</h3>
+                      <p className="text-[12px] font-medium text-[#8b7d6b] mt-1.5 opacity-80 group-hover:opacity-100 transition-opacity">Explore Category</p>
                     </motion.div>
                   </Link>
                 </TiltCard>

@@ -1,28 +1,15 @@
 import { motion } from "motion/react";
 import { Heart, ShoppingBag, Star } from "lucide-react";
-
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  originalPrice?: number;
-  image: string;
-  rating: number;
-  reviews: number;
-  badge?: string;
-  inStock: boolean;
-  category?: string;
-}
+import { Product, useWishlist } from '../../contexts/WishlistContext';
 
 interface ProductCardProps {
   product: Product;
   onQuickView: (product: Product) => void;
-  isWishlisted?: boolean;
-  onToggleWishlist?: () => void;
 }
 
-export default function ProductCard({ product, onQuickView, isWishlisted = false, onToggleWishlist }: ProductCardProps) {
+export default function ProductCard({ product, onQuickView }: ProductCardProps) {
+  const { isInWishlist, toggleWishlist } = useWishlist();
+  const isWishlisted = isInWishlist(product.id);
   const categoryColors: Record<string, string> = {
     Pickles: "#ea580c",
     Chutneys: "#16a34a",
@@ -89,16 +76,18 @@ export default function ProductCard({ product, onQuickView, isWishlisted = false
           variants={{
             hover: { scale: 1.1 }
           }}
-          whileTap={{ scale: 0.9 }}
+          whileTap={{ scale: 0.95 }}
+          animate={isWishlisted ? { scale: [1, 1.15, 1] } : {}}
+          transition={isWishlisted ? { duration: 0.3, ease: "easeOut" } : {}}
           onClick={(e) => {
             e.stopPropagation();
-            onToggleWishlist?.();
+            toggleWishlist(product);
           }}
           className="absolute top-4 right-4 p-3 rounded-full backdrop-blur-xl transition-all z-10"
           style={{ backgroundColor: 'rgba(250, 250, 248, 0.95)' }}
         >
           <Heart
-            className={`w-5 h-5 transition-all ${
+            className={`w-5 h-5 transition-colors duration-300 ${
               isWishlisted ? "fill-red-500 text-red-500" : "text-forest"
             }`}
           />

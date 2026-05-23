@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { Link } from 'react-router';
-import { Minus, Plus, Trash2, ShoppingBag, ArrowRight, Apple, Droplet, Sparkles } from 'lucide-react';
+import { Minus, Plus, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlowEffect } from '../components/effects/GlowEffect';
 import { RippleButton } from '../components/effects/RippleButton';
 
 export function CartPage() {
   const [cartItems, setCartItems] = useState([
-    { id: 1, name: 'Himalayan Mango Pickle', price: 349, quantity: 2, icon: Apple },
-    { id: 2, name: 'Organic Honey', price: 499, quantity: 1, icon: Droplet },
-    { id: 3, name: 'Mixed Fruit Murabba', price: 299, quantity: 1, icon: Sparkles },
+    { id: 1, name: 'Himalayan Mango Pickle', price: 349, quantity: 2, image: '/images/mango_pickle.png' },
+    { id: 2, name: 'Organic Honey', price: 499, quantity: 1, image: '/images/organic_honey.png' },
+    { id: 3, name: 'Mixed Fruit Murabba', price: 299, quantity: 1, image: '/images/fruit_murabba.png' },
   ]);
 
   const updateQuantity = (id: number, newQuantity: number) => {
@@ -26,141 +26,194 @@ export function CartPage() {
   const total = subtotal + shipping;
 
   return (
-    <div className="min-h-screen bg-[#fafaf8] py-12">
-      <div className="container mx-auto px-4">
-        <h1 className="font-serif text-4xl text-[#2a2a2a] mb-8">Shopping Cart</h1>
+    <div className="min-h-screen bg-[#fcfbfa] py-16">
+      <div className="container mx-auto px-4 max-w-6xl">
+        <motion.h1 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="font-serif font-semibold text-5xl text-[#2a2a2a] mb-12 tracking-tight"
+        >
+          Shopping Cart
+        </motion.h1>
 
         {cartItems.length === 0 ? (
-          <div className="glass-card rounded-3xl p-16 text-center shadow-xl">
-            <div className="w-32 h-32 mx-auto mb-6 bg-gradient-to-br from-[#4a6741] to-[#5a7851] rounded-3xl flex items-center justify-center">
-              <ShoppingBag className="w-16 h-16 text-white" strokeWidth={1.5} />
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-white/80 backdrop-blur-md rounded-[32px] p-20 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 max-w-2xl mx-auto"
+          >
+            <div className="w-32 h-32 mx-auto mb-8 bg-gradient-to-br from-[#f0ebe1] to-[#e6dfd3] rounded-[32px] flex items-center justify-center shadow-inner">
+              <ShoppingBag className="w-16 h-16 text-[#8b7d6b]" strokeWidth={1.5} />
             </div>
-            <h2 className="font-serif text-3xl text-[#2a2a2a] mb-4">Your cart is empty</h2>
-            <p className="text-[#6b6560] mb-8">Add some organic goodness to your cart!</p>
-            <GlowEffect glowColor="#1c3a2b" intensity={30}>
+            <h2 className="font-serif font-semibold text-3xl text-[#2a2a2a] mb-4">Your cart is empty</h2>
+            <p className="text-[#6b6560] text-lg mb-10">Discover our collection of organic goodness and fill your cart.</p>
+            <GlowEffect glowColor="#1c3a2b" intensity={20}>
               <Link to="/products">
-                <RippleButton className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-[#1c3a2b] to-[#2a4a3b] hover:from-[#2a4a3b] hover:to-[#1c3a2b] text-white rounded-full font-semibold transition-all duration-500 shadow-[0_8px_30px_rgba(28,58,43,0.3)] hover:shadow-[0_12px_40px_rgba(28,58,43,0.5)]">
+                <RippleButton className="inline-flex items-center gap-3 px-10 py-5 bg-[#1c3a2b] hover:bg-[#2a4a3b] text-white rounded-full font-semibold transition-all duration-400 shadow-[0_8px_30px_rgba(28,58,43,0.2)] hover:shadow-[0_12px_40px_rgba(28,58,43,0.3)]">
                   <ShoppingBag className="w-5 h-5" />
-                  Start Shopping
+                  Continue Shopping
                 </RippleButton>
               </Link>
             </GlowEffect>
-          </div>
+          </motion.div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
             {/* Cart Items */}
-            <div className="lg:col-span-2 space-y-4">
+            <div className="lg:col-span-8 space-y-6">
               <AnimatePresence>
-                {cartItems.map(item => (
+                {cartItems.map((item, index) => (
                   <motion.div
                     key={item.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    className="bg-white rounded-2xl p-6 flex items-center gap-6"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, x: -20, scale: 0.95 }}
+                    transition={{ duration: 0.4, delay: index * 0.1, ease: [0.25, 0.4, 0.25, 1] }}
+                    className="bg-white/80 backdrop-blur-md rounded-[28px] p-6 flex flex-col sm:flex-row items-start sm:items-center gap-6 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-white/50 transition-all duration-400"
                   >
-                    <div className="w-24 h-24 bg-gradient-to-br from-[#4a6741] to-[#5a7851] rounded-2xl flex items-center justify-center shrink-0 overflow-hidden relative shadow-lg">
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-br from-[#d4a533]/20 to-transparent"
-                        animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
-                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    <div className="w-28 h-28 shrink-0 overflow-hidden relative shadow-sm rounded-[20px] group cursor-pointer bg-[#f5f0e8]">
+                      <img 
+                        src={item.image} 
+                        alt={item.name} 
+                        className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500 ease-out"
                       />
-                      <item.icon className="w-12 h-12 text-white/90 relative z-10" strokeWidth={1.5} />
                     </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-lg text-[#2a2a2a] mb-2">{item.name}</h3>
-                    <p className="text-2xl font-bold text-[#1c3a2b]">₹{item.price}</p>
-                  </div>
-                    <div className="flex items-center border-2 border-[rgba(139,125,107,0.2)] rounded-full overflow-hidden">
-                      <motion.button
-                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        className="p-2 hover:bg-[#f5f0e8] transition-colors"
-                        whileTap={{ scale: 0.9 }}
-                      >
-                        <Minus className="w-4 h-4" />
-                      </motion.button>
-                      <motion.span
-                        key={item.quantity}
-                        initial={{ scale: 1.2 }}
-                        animate={{ scale: 1 }}
-                        className="px-4 font-semibold"
-                      >
-                        {item.quantity}
-                      </motion.span>
-                      <motion.button
-                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="p-2 hover:bg-[#f5f0e8] transition-colors"
-                        whileTap={{ scale: 0.9 }}
-                      >
-                        <Plus className="w-4 h-4" />
-                      </motion.button>
+                    
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-serif font-semibold text-xl text-[#2a2a2a] mb-2 truncate">{item.name}</h3>
+                      <p className="text-2xl font-semibold text-[#1c3a2b] mb-4 sm:mb-0 tracking-tight">₹{item.price}</p>
                     </div>
-                    <motion.p
-                      key={item.quantity}
-                      initial={{ scale: 1.2 }}
-                      animate={{ scale: 1 }}
-                      className="font-bold text-xl text-[#2a2a2a] w-24 text-right"
-                    >
-                      ₹{item.price * item.quantity}
-                    </motion.p>
-                    <motion.button
-                      onClick={() => removeItem(item.id)}
-                      className="p-2 hover:bg-red-50 rounded-full transition-colors text-red-500"
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <Trash2 className="w-5 h-5" />
-                    </motion.button>
+
+                    <div className="flex items-center gap-6 w-full sm:w-auto justify-between sm:justify-end">
+                      <div className="flex items-center bg-[#fcfbfa] border border-[#e6dfd3] rounded-full p-1 shadow-inner">
+                        <motion.button
+                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          className="w-10 h-10 rounded-full flex items-center justify-center bg-white hover:bg-[#f5f0e8] text-[#2a2a2a] shadow-sm transition-colors duration-250 ease-in-out"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <Minus className="w-4 h-4" />
+                        </motion.button>
+                        <motion.span
+                          key={item.quantity}
+                          initial={{ scale: 1.2, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          className="w-12 text-center font-medium text-lg text-[#2a2a2a]"
+                        >
+                          {item.quantity}
+                        </motion.span>
+                        <motion.button
+                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          className="w-10 h-10 rounded-full flex items-center justify-center bg-white hover:bg-[#f5f0e8] text-[#2a2a2a] shadow-sm transition-colors duration-250 ease-in-out"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <Plus className="w-4 h-4" />
+                        </motion.button>
+                      </div>
+
+                      <div className="flex items-center gap-4">
+                        <motion.p
+                          key={`total-${item.quantity}`}
+                          initial={{ y: -10, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          className="font-semibold text-xl text-[#2a2a2a] w-24 text-right hidden sm:block"
+                        >
+                          ₹{item.price * item.quantity}
+                        </motion.p>
+                        <motion.button
+                          onClick={() => removeItem(item.id)}
+                          className="w-10 h-10 flex items-center justify-center rounded-full text-[#a8a19a] hover:text-red-500 hover:bg-red-50 transition-colors duration-300"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          aria-label="Remove item"
+                        >
+                          <Trash2 className="w-5 h-5" />
+                        </motion.button>
+                      </div>
+                    </div>
                   </motion.div>
                 ))}
               </AnimatePresence>
             </div>
 
             {/* Order Summary */}
-            <div className="lg:col-span-1">
-              <div className="bg-white rounded-2xl p-6 sticky top-24">
-                <h2 className="font-semibold text-xl text-[#2a2a2a] mb-6">Order Summary</h2>
-                <div className="space-y-4 mb-6">
-                  <div className="flex justify-between">
+            <div className="lg:col-span-4">
+              <motion.div 
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="bg-gradient-to-br from-white/90 to-[#fdfcfb]/80 backdrop-blur-xl rounded-[32px] p-8 sticky top-28 shadow-[0_8px_40px_rgb(0,0,0,0.04)] border border-white/60"
+              >
+                <h2 className="font-serif font-semibold text-2xl text-[#2a2a2a] mb-8">Order Summary</h2>
+                
+                <div className="space-y-5 mb-8">
+                  <div className="flex justify-between items-center text-[1.05rem]">
                     <span className="text-[#6b6560]">Subtotal</span>
-                    <span className="font-semibold text-[#2a2a2a]">₹{subtotal}</span>
+                    <span className="font-medium text-[#2a2a2a]">₹{subtotal}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-center text-[1.05rem]">
                     <span className="text-[#6b6560]">Shipping</span>
-                    <span className="font-semibold text-[#2a2a2a]">
-                      {shipping === 0 ? 'FREE' : `₹${shipping}`}
+                    <span className="font-medium text-[#2a2a2a]">
+                      {shipping === 0 ? <span className="text-[#4a6741] font-semibold">FREE</span> : `₹${shipping}`}
                     </span>
                   </div>
-                  {subtotal < 999 && (
-                    <div className="p-3 bg-[#f5f0e8] rounded-xl text-sm text-[#6b6560]">
-                      Add ₹{999 - subtotal} more for free shipping!
-                    </div>
+                  
+                  {subtotal < 999 && subtotal > 0 && (
+                    <motion.div 
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      className="p-4 bg-gradient-to-r from-[#f5f0e8] to-[#f0ebe1] rounded-[16px] text-sm text-[#5a544f] border border-[#e6dfd3]/50"
+                    >
+                      <span className="font-medium text-[#4a6741]">Almost there!</span> Add ₹{999 - subtotal} more for free shipping.
+                    </motion.div>
                   )}
-                  <div className="border-t border-[rgba(139,125,107,0.1)] pt-4 flex justify-between">
-                    <span className="font-semibold text-lg text-[#2a2a2a]">Total</span>
-                    <span className="font-bold text-2xl text-[#1c3a2b]">₹{total}</span>
+                  
+                  <div className="border-t border-[#e6dfd3] pt-6 flex justify-between items-end mt-2">
+                    <span className="font-serif font-semibold text-xl text-[#2a2a2a]">Total</span>
+                    <div className="text-right">
+                      <span className="text-xs text-[#8b7d6b] block mb-1">Including all taxes</span>
+                      <motion.span 
+                        key={total}
+                        initial={{ scale: 1.1, color: '#4a6741' }}
+                        animate={{ scale: 1, color: '#1c3a2b' }}
+                        className="font-bold text-4xl tracking-tight"
+                      >
+                        ₹{total}
+                      </motion.span>
+                    </div>
                   </div>
                 </div>
-                <GlowEffect glowColor="#1c3a2b" intensity={30}>
-                  <Link to="/checkout">
-                    <RippleButton className="w-full px-10 py-5 bg-gradient-to-r from-[#1c3a2b] to-[#2a4a3b] hover:from-[#2a4a3b] hover:to-[#1c3a2b] text-white rounded-full font-semibold transition-all duration-500 flex items-center justify-center gap-3 mb-4 shadow-[0_8px_30px_rgba(28,58,43,0.3)] hover:shadow-[0_12px_40px_rgba(28,58,43,0.5)]">
-                      Proceed to Checkout
+
+                <GlowEffect glowColor="#1c3a2b" intensity={25}>
+                  <Link to="/checkout" className="block w-full">
+                    <motion.div
+                      whileHover="hover"
+                      className="w-full py-5 bg-[#1c3a2b] hover:bg-[#162e22] text-white rounded-[20px] font-semibold text-lg transition-colors duration-400 flex items-center justify-center gap-3 mb-4 shadow-[0_8px_20px_rgba(28,58,43,0.15)] relative overflow-hidden group"
+                    >
+                      <span className="relative z-10">Proceed to Checkout</span>
                       <motion.div
-                        animate={{ x: [0, 4, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                        variants={{
+                          hover: { x: 5 }
+                        }}
+                        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                        className="relative z-10"
                       >
                         <ArrowRight className="w-5 h-5" />
                       </motion.div>
-                    </RippleButton>
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+                    </motion.div>
                   </Link>
                 </GlowEffect>
+                
                 <Link
                   to="/products"
-                  className="w-full px-8 py-4 bg-[#f5f0e8] hover:bg-[#e8dcc8] text-[#2a2a2a] rounded-full font-semibold transition-all duration-300 flex items-center justify-center shadow-md hover:shadow-lg"
+                  className="w-full py-4 text-[#6b6560] hover:text-[#1c3a2b] font-medium transition-colors duration-300 flex items-center justify-center mt-2 group"
                 >
-                  Continue Shopping
+                  <span className="border-b border-transparent group-hover:border-[#1c3a2b]/30 pb-0.5 transition-all duration-300">
+                    Continue Shopping
+                  </span>
                 </Link>
-              </div>
+              </motion.div>
             </div>
           </div>
         )}

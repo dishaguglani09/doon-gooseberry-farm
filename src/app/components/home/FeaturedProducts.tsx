@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Heart, ShoppingBag, Star } from "lucide-react";
 import { Badge } from "../ui/Badge";
+import { useWishlist, Product } from '../../contexts/WishlistContext';
 
 export default function FeaturedProducts() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -72,11 +73,13 @@ export default function FeaturedProducts() {
       rating: 4.6,
       reviews: 98
     }
-  ];
+  ].map(p => ({ ...p, description: 'Handcrafted delicacy', inStock: true })) as Product[];
 
   const filteredProducts = activeCategory === "All"
     ? products
     : products.filter(p => p.category === activeCategory);
+
+  const { isInWishlist, toggleWishlist } = useWishlist();
 
   return (
     <section className="py-24 bg-cream relative overflow-hidden">
@@ -192,11 +195,19 @@ export default function FeaturedProducts() {
                     }}
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="absolute top-4 right-4 p-3 rounded-full backdrop-blur-xl"
+                    whileTap={{ scale: 0.95 }}
+                    animate={isInWishlist(product.id) ? { scale: [1, 1.15, 1] } : {}}
+                    transition={isInWishlist(product.id) ? { duration: 0.3, ease: "easeOut" } : {}}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleWishlist(product);
+                    }}
+                    className="absolute top-4 right-4 p-3 rounded-full backdrop-blur-xl z-10 cursor-pointer"
                     style={{ backgroundColor: 'rgba(250, 250, 248, 0.9)' }}
                   >
-                    <Heart className="w-5 h-5 text-forest" />
+                    <Heart className={`w-5 h-5 transition-colors duration-300 ${
+                      isInWishlist(product.id) ? "fill-red-500 text-red-500" : "text-forest"
+                    }`} />
                   </motion.button>
                 </div>
 

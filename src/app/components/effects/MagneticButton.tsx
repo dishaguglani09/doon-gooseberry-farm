@@ -1,5 +1,4 @@
-import { useRef } from 'react';
-import { motion, useMotionValue, useSpring } from 'motion/react';
+import React, { isValidElement } from 'react';
 
 interface MagneticButtonProps {
   children: React.ReactNode;
@@ -7,44 +6,16 @@ interface MagneticButtonProps {
   strength?: number;
 }
 
-export function MagneticButton({ children, className = '', strength = 0.3 }: MagneticButtonProps) {
-  const ref = useRef<HTMLDivElement>(null);
+export function MagneticButton({ children }: MagneticButtonProps) {
+  // We remove the shaky Framer Motion tracking and replace it with 
+  // a fluid, premium CSS transform that affects the button directly.
+  if (isValidElement(children)) {
+    const childClassName = children.props.className || '';
+    return React.cloneElement(children, {
+      ...children.props,
+      className: `${childClassName} hover:-translate-y-[2px] active:scale-[0.98] transition-all duration-400 ease-out`.trim()
+    } as React.HTMLAttributes<HTMLElement>);
+  }
 
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const springConfig = { damping: 20, stiffness: 300, mass: 0.5 };
-  const springX = useSpring(x, springConfig);
-  const springY = useSpring(y, springConfig);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
-
-    const rect = ref.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-
-    const distanceX = e.clientX - centerX;
-    const distanceY = e.clientY - centerY;
-
-    x.set(distanceX * strength);
-    y.set(distanceY * strength);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
-  return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ x: springX, y: springY }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
+  return <>{children}</>;
 }

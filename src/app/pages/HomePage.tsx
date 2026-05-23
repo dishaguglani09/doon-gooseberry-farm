@@ -183,11 +183,11 @@ export function HomePage() {
     <div className="min-h-screen overflow-x-hidden">
 
       {/* ─── Hero ───────────────────────────────────────── */}
-      <section className="relative h-[92vh] min-h-[620px] overflow-hidden">
+      <section className="relative h-[92vh] min-h-[620px] overflow-hidden hero-section-container">
         <ImageWithFallback
           src={HERO_BG}
           alt="Himalayan terraced farm fields"
-          className="absolute inset-0 w-full h-full object-cover object-center scale-105"
+          className="absolute inset-0 w-full h-full object-cover object-center scale-105 hero-bg-cinematic"
           style={{ filter: 'brightness(0.6)' }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[rgba(10,25,15,0.35)] via-[rgba(10,25,15,0.45)] to-[rgba(10,25,15,0.75)]" />
@@ -245,26 +245,15 @@ export function HomePage() {
             transition={{ duration: 0.9, delay: 0.45 }}
             className="flex flex-col sm:flex-row gap-4 items-center"
           >
-            <MagneticButton strength={0.3}>
-              <GlowEffect glowColor="#d4a533" intensity={35}>
-                <RippleButton className="group flex items-center gap-2.5 px-9 py-4 bg-gradient-to-r from-[#d4a533] to-[#c49a2e] hover:from-[#e5b644] hover:to-[#d4a533] text-white rounded-full font-semibold transition-all duration-500 shadow-[0_8px_32px_rgba(212,165,51,0.45)] hover:shadow-[0_12px_48px_rgba(212,165,51,0.6)]">
-                  <Link to="/products" className="flex items-center gap-2.5">
-                    Shop Now
-                    <ArrowRight className="w-4.5 h-4.5 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </RippleButton>
-              </GlowEffect>
-            </MagneticButton>
+            <Link to="/products" className="hero-btn-primary">
+              Shop Now
+              <ArrowRight className="w-4.5 h-4.5" />
+            </Link>
 
-            <MagneticButton strength={0.25}>
-              <Link
-                to="/our-story"
-                className="flex items-center gap-2.5 px-9 py-4 bg-white/10 hover:bg-white/20 border border-white/30 hover:border-white/50 text-white rounded-full font-semibold transition-all duration-500 backdrop-blur-md"
-              >
-                <Play className="w-4 h-4" />
-                Our Story
-              </Link>
-            </MagneticButton>
+            <Link to="/our-story" className="hero-btn-secondary">
+              <Play className="w-4 h-4" />
+              Our Story
+            </Link>
           </motion.div>
 
           {/* Stats */}
@@ -677,41 +666,6 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* ─── Photo Gallery / Lifestyle Grid ─────────── */}
-      <section className="py-24 bg-[#f5f0e8]">
-        <div className="container mx-auto px-4">
-          <ScrollReveal>
-            <div className="flex flex-col md:flex-row items-end justify-between gap-4 mb-12">
-              <div>
-                <p className="text-[#4a6741] text-sm font-semibold tracking-[0.12em] uppercase mb-3">From Our Farm</p>
-                <h2 className="font-serif text-[clamp(2rem,4vw,3rem)] text-[#1c2a1f]">Pure, Natural &amp; Beautiful</h2>
-              </div>
-              <Link to="/our-story" className="flex items-center gap-2 text-[#4a6741] font-semibold hover:gap-3 transition-all duration-300 shrink-0">
-                Our Story <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 auto-rows-[200px]">
-            {gallery.map((img, i) => (
-              <ScrollReveal key={i}>
-                <motion.div
-                  className={`relative overflow-hidden rounded-2xl cursor-pointer ${img.tall ? 'row-span-2' : 'row-span-1'}`}
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                >
-                  <ImageWithFallback
-                    src={img.src}
-                    alt={img.alt}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
-                </motion.div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ─── Newsletter CTA ───────────────────────────── */}
       <section className="relative py-28 overflow-hidden">

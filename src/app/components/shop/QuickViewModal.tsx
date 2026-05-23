@@ -2,20 +2,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { X, Minus, Plus, ShoppingCart, Heart, Star, Truck, Leaf, Clock, CheckCircle, Sparkles } from "lucide-react";
 import { useState } from "react";
 
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  originalPrice?: number;
-  image: string;
-  rating: number;
-  reviews: number;
-  badge?: string;
-  inStock: boolean;
-  nutritionHighlights?: string[];
-  deliveryDays?: number;
-}
+import { Product, useWishlist } from '../../contexts/WishlistContext';
 
 interface QuickViewModalProps {
   product: Product | null;
@@ -27,7 +14,7 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedSize, setSelectedSize] = useState("250g");
-  const [isWishlisted, setIsWishlisted] = useState(false);
+  const { isInWishlist, toggleWishlist } = useWishlist();
 
   if (!product) return null;
 
@@ -300,12 +287,14 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
                       <motion.button
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
-                        onClick={() => setIsWishlisted(!isWishlisted)}
+                        animate={isInWishlist(product.id) ? { scale: [1, 1.15, 1] } : {}}
+                        transition={isInWishlist(product.id) ? { duration: 0.3, ease: "easeOut" } : {}}
+                        onClick={() => toggleWishlist(product)}
                         className="p-4 border-2 border-border rounded-2xl hover:border-primary hover:bg-primary/5 transition-all"
                       >
                         <Heart
-                          className={`w-7 h-7 ${
-                            isWishlisted ? "fill-red-500 text-red-500" : "text-gray-700"
+                          className={`w-7 h-7 transition-colors duration-300 ${
+                            isInWishlist(product.id) ? "fill-red-500 text-red-500" : "text-gray-700"
                           }`}
                         />
                       </motion.button>
