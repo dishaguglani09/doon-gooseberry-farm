@@ -299,18 +299,12 @@ export function ProductDetailPage() {
             <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {relatedProducts.map((relatedProduct) => (
                 <StaggerItem key={relatedProduct.id}>
-                  <TiltCard tiltIntensity={10} scaleIntensity={1.03} shadowIntensity={0.25}>
-                    <Link to={`/product/${relatedProduct.slug}`} className="group block">
-                      <motion.div
-                        className="bg-white rounded-2xl overflow-hidden shadow-sm border border-[rgba(0,0,0,0.06)] hover:shadow-xl transition-all duration-500"
-                        whileHover={{ y: -6 }}
-                        transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                      >
-                        <div className="aspect-[4/3] overflow-hidden relative">
+                  <Link to={`/product/${relatedProduct.slug}`} className="group flex flex-col h-full overflow-hidden rounded-[30px] bg-[#fcfbf8] border border-[#ece8df] shadow-[0_8px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] block">
+                        <div className="h-[240px] shrink-0 w-full overflow-hidden relative">
                           <ImageWithFallback
                             src={relatedProduct.image}
                             alt={relatedProduct.name}
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
                           />
                           {relatedProduct.badge && (
                             <div className="absolute top-3 left-3 px-2.5 py-1 bg-[#1c3a2b] text-white text-xs font-semibold rounded-full">
@@ -318,17 +312,17 @@ export function ProductDetailPage() {
                             </div>
                           )}
                         </div>
-                        <div className="p-5">
-                          <h3 className="font-semibold text-[#1c2a1f] mb-3">{relatedProduct.name}</h3>
-                          <div className="flex items-center justify-between">
+                        <div className="p-6 flex flex-col flex-1">
+                          <h3 className="font-semibold text-[#1c2a1f] mb-3 leading-snug">{relatedProduct.name}</h3>
+                          <div className="flex items-center justify-between mt-auto pt-2">
                             <div>
-                              <span className="font-bold text-[#1c3a2b]" style={{ fontSize: '1.1rem' }}>₹{relatedProduct.price}</span>
+                              <span className="font-bold text-[#1c3a2b]" style={{ fontSize: '1.25rem' }}>₹{relatedProduct.price}</span>
                               {relatedProduct.originalPrice && (
-                                <span className="text-xs text-[#9b9590] line-through ml-1.5">₹{relatedProduct.originalPrice}</span>
+                                <span className="text-sm text-[#9b9590] line-through ml-2">₹{relatedProduct.originalPrice}</span>
                               )}
                             </div>
                             <RippleButton
-                              className="px-4 py-2 bg-[#1c3a2b] hover:bg-[#2a4a3b] text-white rounded-full text-xs font-semibold transition-colors"
+                              className="px-5 py-2.5 bg-[#1c3a2b] hover:bg-[#2a4a3b] text-white rounded-full text-[13px] font-semibold transition-colors duration-300"
                               onClick={(e: React.MouseEvent) => {
                                 e.preventDefault();
                                 e.stopPropagation();
@@ -338,9 +332,7 @@ export function ProductDetailPage() {
                             </RippleButton>
                           </div>
                         </div>
-                      </motion.div>
-                    </Link>
-                  </TiltCard>
+                  </Link>
                 </StaggerItem>
               ))}
             </StaggerChildren>

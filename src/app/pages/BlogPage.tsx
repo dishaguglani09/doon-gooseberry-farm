@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router';
 import { Calendar, User, ArrowRight, Clock, BookOpen, Sparkles, TrendingUp, Leaf } from 'lucide-react';
 import { TiltCard } from '../components/effects/TiltCard';
@@ -10,6 +11,8 @@ import { motion } from 'motion/react';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 
 export function BlogPage() {
+  const [showAll, setShowAll] = useState(false);
+
   const featuredPost = {
     title: 'The Benefits of Organic Eating: A Complete Guide',
     excerpt: 'Discover how switching to organic products can transform your health and well-being. We explore the science, the tradition, and the taste that makes organic truly different.',
@@ -126,15 +129,12 @@ export function BlogPage() {
       <div className="container mx-auto px-4 py-16">
         {/* Featured Post */}
         <ScrollReveal>
-          <Link to={`/blog/${featuredPost.slug}`} className="block group mb-16">
-            <TiltCard tiltIntensity={4} scaleIntensity={1.01} shadowIntensity={0.15}>
-              <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border border-[rgba(0,0,0,0.06)]">
-                <div className="grid grid-cols-1 lg:grid-cols-2">
-                  <div className="relative overflow-hidden aspect-video lg:aspect-auto min-h-[280px]">
+          <Link to={`/blog/${featuredPost.slug}`} className="group flex flex-col overflow-hidden rounded-[30px] bg-[#fcfbf8] border border-[#ece8df] shadow-[0_8px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] block mb-16">
+                  <div className="relative overflow-hidden h-[240px] shrink-0 w-full">
                     <ImageWithFallback
                       src={featuredPost.image}
                       alt={featuredPost.title}
-                      className="w-full h-full object-cover absolute inset-0 transition-transform duration-700 group-hover:scale-105"
+                      className="w-full h-full object-cover absolute inset-0 transition-transform duration-700 group-hover:scale-[1.05]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/20" />
                     <div className="absolute top-4 left-4">
@@ -170,9 +170,6 @@ export function BlogPage() {
                       <ArrowRight className="w-4 h-4" />
                     </div>
                   </div>
-                </div>
-              </div>
-            </TiltCard>
           </Link>
         </ScrollReveal>
 
@@ -197,44 +194,43 @@ export function BlogPage() {
         {/* Posts Grid */}
         <StaggerChildren staggerDelay={0.1}>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {posts.map((post) => (
-              <Link key={post.slug} to={`/blog/${post.slug}`} className="group block">
-                <TiltCard tiltIntensity={6} scaleIntensity={1.02} shadowIntensity={0.15}>
-                  <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-[rgba(0,0,0,0.06)] h-full flex flex-col">
-                    <div className="relative overflow-hidden aspect-video">
-                      <ImageWithFallback
-                        src={post.image}
-                        alt={post.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
-                      <div className="absolute top-3 left-3">
-                        <span className="px-3 py-1 bg-white/90 backdrop-blur-sm text-[#4a6741] text-xs font-semibold rounded-full">
-                          {post.category}
-                        </span>
-                      </div>
+            {posts.slice(0, showAll ? posts.length : 3).map((post) => (
+              <Link 
+                key={post.slug} 
+                to={`/blog/${post.slug}`} 
+                className="group flex flex-col h-full overflow-hidden rounded-[30px] bg-[#fcfbf8] border border-[#ece8df] shadow-[0_8px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] block"
+              >
+                <div className="relative overflow-hidden h-[240px] shrink-0 w-full">
+                  <ImageWithFallback
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-full object-cover object-center block transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="px-3.5 py-1.5 bg-white/95 backdrop-blur-md text-[#4a6741] text-[13px] font-semibold rounded-full shadow-sm border border-white/20">
+                      {post.category}
+                    </span>
+                  </div>
+                </div>
+                
+                <div className="p-7 flex flex-col flex-1">
+                  <h3 className="font-serif font-bold text-[1.25rem] text-[#1c2a1f] mb-3 group-hover:text-[#4a6741] transition-colors leading-snug line-clamp-2">
+                    {post.title}
+                  </h3>
+                  <p className="text-[#6b6560] text-[15px] leading-relaxed line-clamp-2 flex-1 mb-5">{post.excerpt}</p>
+                  
+                  <div className="flex items-center justify-between text-[13px] font-medium text-[#8a8580] pt-4 border-t border-[#ece8df] mt-auto">
+                    <div className="flex items-center gap-1.5">
+                      <User className="w-4 h-4 text-[#4a6741]/70" />
+                      <span>{post.author}</span>
                     </div>
-                    <div className="p-6 flex flex-col flex-1">
-                      <h3 className="font-serif text-[#1c2a1f] mb-2 group-hover:text-[#4a6741] transition-colors leading-snug" style={{ fontSize: '1.05rem' }}>
-                        {post.title}
-                      </h3>
-                      <p className="text-[#7a7570] text-sm mb-4 leading-relaxed line-clamp-2 flex-1">{post.excerpt}</p>
-                      <div className="flex items-center justify-between text-xs text-[#9b9590] pt-4 border-t border-[rgba(0,0,0,0.05)]">
-                        <div className="flex items-center gap-1.5">
-                          <User className="w-3.5 h-3.5" />
-                          <span>{post.author}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <div className="flex items-center gap-1">
-                            <Clock className="w-3.5 h-3.5" />
-                            <span>{post.readTime}</span>
-                          </div>
-                          <ArrowRight className="w-3.5 h-3.5 text-[#4a6741] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                        </div>
-                      </div>
+                    <div className="flex items-center gap-1.5">
+                      <Clock className="w-4 h-4 text-[#4a6741]/70" />
+                      <span>{post.readTime}</span>
                     </div>
                   </div>
-                </TiltCard>
+                </div>
               </Link>
             ))}
           </div>
@@ -245,9 +241,12 @@ export function BlogPage() {
           <div className="flex justify-center mt-14">
             <MagneticButton strength={0.3}>
               <GlowEffect glowColor="#1c3a2b" intensity={25}>
-                <RippleButton className="flex items-center gap-2.5 px-9 py-4 bg-[#1c3a2b] hover:bg-[#2a4a3b] text-white rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl">
+                <RippleButton 
+                  onClick={() => setShowAll(!showAll)}
+                  className="flex items-center gap-2.5 px-9 py-4 bg-[#1c3a2b] hover:bg-[#2a4a3b] text-white rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+                >
                   <BookOpen className="w-4 h-4" />
-                  Load More Articles
+                  {showAll ? 'Show Less' : 'Load More Articles'}
                 </RippleButton>
               </GlowEffect>
             </MagneticButton>

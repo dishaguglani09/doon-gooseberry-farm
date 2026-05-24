@@ -36,12 +36,11 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
       whileHover="hover"
-      className="group bg-snow rounded-3xl overflow-hidden relative cursor-pointer"
-      style={{ boxShadow: 'var(--shadow-md)' }}
+      className="group flex flex-col h-full overflow-hidden rounded-[30px] bg-[#fcfbf8] border border-[#ece8df] shadow-[0_8px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] relative cursor-pointer"
       onClick={() => onQuickView(product)}
     >
       {/* Image Container */}
-      <div className="relative aspect-square overflow-hidden bg-cream">
+      <div className="relative h-[240px] shrink-0 w-full overflow-hidden bg-cream">
         <motion.img
           variants={{
             hover: { scale: 1.08 }
@@ -119,7 +118,7 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
       </div>
 
       {/* Product Details */}
-      <div className="p-6">
+      <div className="p-6 flex flex-col flex-1">
         {/* Product Name */}
         <h3 className="text-xl font-heading mb-2 text-forest line-clamp-1">
           {product.name}
@@ -149,7 +148,7 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
         </div>
 
         {/* Price and CTA */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mt-auto pt-2">
           <div className="flex items-baseline gap-2">
             <span className="text-3xl font-display text-forest">₹{product.price}</span>
             {product.originalPrice && (

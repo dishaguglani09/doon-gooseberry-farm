@@ -9,6 +9,7 @@ import { GlowEffect } from '../components/effects/GlowEffect';
 import { RippleButton } from '../components/effects/RippleButton';
 import { ParallaxSection } from '../components/effects/ParallaxSection';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { StorySection } from '../components/sections/StorySection';
 
 const HERO_BG = 'https://images.unsplash.com/photo-1765883958680-bfc9345be81b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920';
 const FARM_WOMEN = 'https://images.unsplash.com/photo-1755353545156-ae3525d9b676?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=900';
@@ -141,25 +142,29 @@ export function HomePage() {
       name: 'Priya Sharma',
       location: 'Delhi',
       rating: 5,
-      text: 'The mango pickle reminds me of my grandmother\'s homemade recipe. Absolutely authentic and delicious!',
-      avatar: 'https://images.unsplash.com/photo-1580756321097-164e0ccb4ddf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=100',
+      text: 'The mango pickle is absolutely delicious! Reminds me of my grandmother\'s homemade pickles. Will definitely order again.',
       initials: 'PS',
     },
     {
       name: 'Rajesh Kumar',
       location: 'Mumbai',
       rating: 5,
-      text: 'Best organic honey I\'ve ever tasted. Worth every penny. My entire family loves it!',
-      avatar: '',
+      text: 'Best quality products! The gooseberry juice is so fresh and healthy. Great for the whole family.',
       initials: 'RK',
     },
     {
-      name: 'Anjali Mehta',
+      name: 'Anita Verma',
       location: 'Bangalore',
       rating: 5,
-      text: 'Finally found genuinely organic products. The taste difference is truly remarkable.',
-      avatar: '',
-      initials: 'AM',
+      text: 'Love the strawberry jam! It\'s so natural and tasty. Perfect for breakfast toast. Highly recommended!',
+      initials: 'AV',
+    },
+    {
+      name: 'Vikram Singh',
+      location: 'Dehradun',
+      rating: 5,
+      text: 'Excellent farm products with authentic taste. The packaging is also very good. Fast delivery too!',
+      initials: 'VS',
     },
   ];
 
@@ -250,10 +255,16 @@ export function HomePage() {
               <ArrowRight className="w-4.5 h-4.5" />
             </Link>
 
-            <Link to="/our-story" className="hero-btn-secondary">
+            <button 
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('our-story')?.scrollIntoView({ behavior: 'smooth' });
+              }} 
+              className="hero-btn-secondary"
+            >
               <Play className="w-4 h-4" />
               Our Story
-            </Link>
+            </button>
           </motion.div>
 
           {/* Stats */}
@@ -320,18 +331,12 @@ export function HomePage() {
           <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredProducts.map((product) => (
               <StaggerItem key={product.id}>
-                <Link to={`/product/${product.slug}`} className="group block h-full">
-                  <TiltCard
-                    className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 h-full flex flex-col border border-[rgba(0,0,0,0.06)]"
-                    tiltIntensity={6}
-                    scaleIntensity={1.02}
-                    shadowIntensity={0.15}
-                  >
-                    <div className="relative overflow-hidden aspect-[4/3]">
+                <Link to={`/product/${product.slug}`} className="group flex flex-col h-full overflow-hidden rounded-[30px] bg-[#fcfbf8] border border-[#ece8df] shadow-[0_8px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] block">
+                    <div className="relative overflow-hidden h-[240px] shrink-0 w-full">
                       <ImageWithFallback
                         src={product.image}
                         alt={product.name}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
                       {product.badge && (
@@ -352,9 +357,9 @@ export function HomePage() {
                       </motion.button>
                     </div>
 
-                    <div className="p-5 flex flex-col flex-1">
-                      <h3 className="font-semibold text-[#1c2a1f] mb-2 leading-snug">{product.name}</h3>
-                      <div className="flex items-center gap-1.5 mb-3">
+                    <div className="p-6 flex flex-col flex-1">
+                      <h3 className="font-semibold text-[1.1rem] text-[#1c2a1f] mb-2 leading-snug">{product.name}</h3>
+                      <div className="flex items-center gap-1.5 mb-5">
                         <div className="flex">
                           {[...Array(5)].map((_, i) => (
                             <Star key={i} className={`w-3.5 h-3.5 ${i < Math.floor(product.rating) ? 'fill-[#FFB900] text-[#FFB900]' : 'text-gray-200 fill-gray-200'}`} />
@@ -364,23 +369,22 @@ export function HomePage() {
                       </div>
                       <div className="flex items-center justify-between mt-auto">
                         <div>
-                          <span className="font-bold text-[#1c3a2b]" style={{ fontSize: '1.1rem' }}>₹{product.price}</span>
+                          <span className="font-bold text-[#1c3a2b]" style={{ fontSize: '1.25rem' }}>₹{product.price}</span>
                           {product.originalPrice && (
-                            <span className="text-xs text-[#9b9590] line-through ml-2">₹{product.originalPrice}</span>
+                            <span className="text-sm text-[#9b9590] line-through ml-2">₹{product.originalPrice}</span>
                           )}
                         </div>
                         <GlowEffect glowColor="#1c3a2b" intensity={18}>
                           <RippleButton
-                            className="flex items-center gap-1.5 px-4 py-2 bg-[#1c3a2b] hover:bg-[#2a4a3b] text-white rounded-full text-xs font-semibold transition-all duration-300 shadow hover:shadow-lg"
+                            className="flex items-center gap-1.5 px-5 py-2.5 bg-[#1c3a2b] hover:bg-[#2a4a3b] text-white rounded-full text-[13px] font-semibold transition-all duration-300 shadow hover:shadow-lg"
                             onClick={(e: React.MouseEvent) => { e.preventDefault(); e.stopPropagation(); }}
                           >
-                            <ShoppingCart className="w-3.5 h-3.5" />
+                            <ShoppingCart className="w-4 h-4" />
                             Add
                           </RippleButton>
                         </GlowEffect>
                       </div>
                     </div>
-                  </TiltCard>
                 </Link>
               </StaggerItem>
             ))}
@@ -404,25 +408,20 @@ export function HomePage() {
           <StaggerChildren className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {categories.map((category) => (
               <StaggerItem key={category.slug}>
-                <Link to={`/category/${category.slug}`} className="group block">
-                  <TiltCard
-                    className="relative rounded-2xl overflow-hidden aspect-[3/4] shadow-sm hover:shadow-xl transition-all duration-500 cursor-pointer"
-                    tiltIntensity={5}
-                    scaleIntensity={1.04}
-                    shadowIntensity={0.2}
-                  >
-                    <ImageWithFallback
-                      src={category.image}
-                      alt={category.name}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-115"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[rgba(18,38,26,0.85)] via-[rgba(18,38,26,0.3)] to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <p className="text-[#d4a533] text-xs mb-1">{category.tagline}</p>
-                      <h3 className="text-white font-semibold leading-tight">{category.name}</h3>
-                      <p className="text-white/60 text-xs mt-0.5">{category.count} items</p>
+                <Link to={`/category/${category.slug}`} className="group flex flex-col h-full overflow-hidden rounded-[30px] bg-[#fcfbf8] border border-[#ece8df] shadow-[0_8px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] block text-center">
+                    <div className="relative overflow-hidden h-[240px] shrink-0 w-full">
+                      <ImageWithFallback
+                        src={category.image}
+                        alt={category.name}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
                     </div>
-                  </TiltCard>
+                    <div className="p-6 flex flex-col flex-1 items-center justify-center">
+                      <p className="text-[#d4a533] text-[11px] font-semibold tracking-wider uppercase mb-1.5">{category.tagline}</p>
+                      <h3 className="text-[#1c2a1f] font-serif text-lg font-bold leading-tight mb-1">{category.name}</h3>
+                      <p className="text-[#8a8580] text-[13px] mt-auto font-medium">{category.count} items</p>
+                    </div>
                 </Link>
               </StaggerItem>
             ))}
@@ -477,105 +476,8 @@ export function HomePage() {
         </section>
       </ParallaxSection>
 
-      {/* ─── Farm Story ─────────────────────────────── */}
-      <section className="py-24 bg-white overflow-hidden">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* Images composition */}
-            <ScrollReveal>
-              <div className="relative">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-4">
-                    <div className="rounded-2xl overflow-hidden aspect-[3/4] shadow-xl">
-                      <ImageWithFallback
-                        src={FARM_WOMEN}
-                        alt="Woman harvesting organic herbs on farm"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="rounded-2xl overflow-hidden aspect-square shadow-lg">
-                      <ImageWithFallback
-                        src="https://images.unsplash.com/photo-1649509857227-f63b234545f8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
-                        alt="Farm herbs plate"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-4 mt-8">
-                    <div className="rounded-2xl overflow-hidden aspect-square shadow-lg">
-                      <ImageWithFallback
-                        src={TERRACED_FARM}
-                        alt="Terraced mountain farm village"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="rounded-2xl overflow-hidden aspect-[3/4] shadow-xl">
-                      <ImageWithFallback
-                        src={FARM_HARVEST}
-                        alt="Harvesting on the organic farm"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Badge overlay */}
-                <motion.div
-                  className="absolute -bottom-6 -left-6 bg-gradient-to-br from-[#d4a533] to-[#b8902c] text-white p-6 rounded-2xl shadow-2xl"
-                  whileHover={{ scale: 1.05, rotate: -2 }}
-                  transition={{ type: 'spring', stiffness: 400 }}
-                >
-                  <p className="text-3xl font-bold">30+</p>
-                  <p className="text-sm font-medium text-white/90">Years of Trust</p>
-                </motion.div>
-              </div>
-            </ScrollReveal>
-
-            {/* Content */}
-            <ScrollReveal>
-              <div className="lg:pl-8">
-                <p className="text-[#4a6741] text-sm font-semibold tracking-[0.12em] uppercase mb-4">Our Heritage</p>
-                <h2 className="font-serif text-[clamp(2rem,4vw,3rem)] text-[#1c2a1f] mb-6 leading-tight">
-                  Three Decades of
-                  <br />Organic Excellence
-                </h2>
-                <p className="text-[#6b6560] mb-5 leading-relaxed">
-                  Since 1995, we've been cultivating organic produce in the pristine valleys of Uttarakhand. Our journey
-                  began with a simple belief: that food should be pure, natural, and full of life.
-                </p>
-                <p className="text-[#6b6560] mb-8 leading-relaxed">
-                  Today, we continue that legacy — combining traditional farming wisdom with modern sustainable practices
-                  to bring you the finest organic products from the heart of the Himalayas.
-                </p>
-
-                <div className="grid grid-cols-2 gap-4 mb-8">
-                  {[
-                    { val: '50+ Acres', label: 'Certified organic land' },
-                    { val: '50,000+', label: 'Families served' },
-                    { val: '80+', label: 'Local farmers supported' },
-                    { val: '0', label: 'Artificial additives' },
-                  ].map((stat) => (
-                    <div key={stat.val} className="p-4 rounded-xl bg-[#f5f0e8] border border-[rgba(74,103,65,0.1)]">
-                      <p className="font-bold text-[#1c3a2b]" style={{ fontSize: '1.2rem' }}>{stat.val}</p>
-                      <p className="text-xs text-[#6b6560] mt-0.5">{stat.label}</p>
-                    </div>
-                  ))}
-                </div>
-
-                <MagneticButton strength={0.25}>
-                  <Link
-                    to="/our-story"
-                    className="inline-flex items-center gap-2.5 px-8 py-4 bg-[#1c3a2b] hover:bg-[#2a4a3b] text-white rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
-                  >
-                    Read Our Story
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </MagneticButton>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
+      {/* ─── Farm Story (New Story Section) ─────────── */}
+      <StorySection />
 
       {/* ─── Farm to Table Process ─────────────────── */}
       <section className="py-24 bg-[#1c2a1f] overflow-hidden relative">
@@ -618,48 +520,52 @@ export function HomePage() {
       </section>
 
       {/* ─── Testimonials ────────────────────────────── */}
-      <section className="py-24 bg-[#fdfcfb]">
+      <section className="py-28 bg-[#f8f7f4]">
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <div className="text-center mb-14">
-              <p className="text-[#4a6741] text-sm font-semibold tracking-[0.12em] uppercase mb-3">Reviews</p>
-              <h2 className="font-serif text-[clamp(2rem,4vw,3rem)] text-[#1c2a1f]">What Families Say</h2>
-              <p className="text-[#7a7570] mt-3 max-w-xl mx-auto">
-                Real stories from people who trust our organic products every day
+            <div className="text-center mb-16">
+              <h2 className="font-serif text-[clamp(2.5rem,4vw,3.5rem)] text-black mb-4">
+                What Our <span className="text-[#4a6741]">Customers</span> Say
+              </h2>
+              <p className="text-[#6b6560] max-w-2xl mx-auto text-[1.1rem] leading-relaxed">
+                Don't just take our word for it — hear from our happy customers across India.
               </p>
             </div>
           </ScrollReveal>
 
-          <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {testimonials.map((t, i) => (
-              <StaggerItem key={i}>
-                <TiltCard
-                  className="bg-white rounded-2xl p-7 border border-[rgba(0,0,0,0.06)] shadow-sm hover:shadow-xl transition-all duration-500 h-full flex flex-col"
-                  tiltIntensity={5}
-                  scaleIntensity={1.02}
-                  shadowIntensity={0.12}
+              <StaggerItem key={i} className="h-full">
+                <motion.div
+                  className="bg-white rounded-[24px] p-8 sm:p-10 border border-[#e5e0d8] flex flex-col h-full transform-gpu"
+                  initial={false}
+                  whileHover={{
+                    y: -8,
+                    boxShadow: '0 20px 40px -15px rgba(0,0,0,0.06)',
+                    borderColor: 'rgba(74,103,65,0.4)',
+                  }}
+                  transition={{ duration: 0.35, ease: 'easeOut' }}
                 >
-                  <div className="flex mb-4">
+                  <div className="flex mb-6 gap-1.5">
                     {[...Array(t.rating)].map((_, j) => (
-                      <Star key={j} className="w-4 h-4 fill-[#FFB900] text-[#FFB900]" />
+                      <Star key={j} className="w-5 h-5 fill-[#FFB900] text-[#FFB900]" />
                     ))}
                   </div>
-                  <p className="text-[#3a3a3a] leading-relaxed mb-6 flex-1 italic">"{t.text}"</p>
-                  <div className="flex items-center gap-3 pt-4 border-t border-[rgba(0,0,0,0.06)]">
-                    <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#4a6741] to-[#5a7851] flex items-center justify-center shrink-0">
-                      <span className="text-white text-sm font-bold">{t.initials}</span>
+                  
+                  <p className="text-[#4a4540] font-medium leading-[1.8] mb-10 flex-1 text-[1.05rem]">
+                    “{t.text}”
+                  </p>
+                  
+                  <div className="pt-6 border-t border-[#f0ebe1] flex items-center gap-4 mt-auto">
+                    <div className="w-[46px] h-[46px] rounded-full bg-[#f0f4f1] flex items-center justify-center shrink-0">
+                      <span className="text-[#4a6741] font-bold text-[15px] tracking-wide">{t.initials}</span>
                     </div>
                     <div>
-                      <p className="font-semibold text-[#1c2a1f]">{t.name}</p>
-                      <p className="text-xs text-[#9b9590]">{t.location}</p>
-                    </div>
-                    <div className="ml-auto">
-                      <div className="w-8 h-8 rounded-full bg-[#4a6741]/10 flex items-center justify-center">
-                        <Leaf className="w-4 h-4 text-[#4a6741]" />
-                      </div>
+                      <p className="font-bold text-black text-[15px]">{t.name}</p>
+                      <p className="text-[13px] text-[#8a8580] mt-0.5">{t.location}</p>
                     </div>
                   </div>
-                </TiltCard>
+                </motion.div>
               </StaggerItem>
             ))}
           </StaggerChildren>

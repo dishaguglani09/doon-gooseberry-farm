@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router';
 import { Calendar, User, Clock, Share2, Facebook, Twitter, Linkedin, ArrowRight, Leaf, Package, Droplet, Mountain } from 'lucide-react';
 import { motion } from 'motion/react';
 import { TiltCard } from '../components/effects/TiltCard';
+import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 
 export function BlogDetailPage() {
   const { blogSlug } = useParams();
@@ -9,6 +10,7 @@ export function BlogDetailPage() {
   const post = {
     title: 'The Benefits of Organic Eating: A Complete Guide',
     excerpt: 'Discover how switching to organic products can transform your health and well-being.',
+    image: 'https://images.unsplash.com/photo-1649509857227-f63b234545f8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200',
     icon: Leaf,
     author: 'Dr. Anjali Gupta',
     authorBio: 'Nutritionist and organic food advocate with 15+ years of experience',
@@ -39,19 +41,19 @@ export function BlogDetailPage() {
     {
       title: 'Traditional Pickle Making',
       slug: 'traditional-pickle-making',
-      icon: Package,
+      image: 'https://images.unsplash.com/photo-1562346816-9d0bdd559ec1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600',
       date: 'March 18, 2024',
     },
     {
       title: 'Honey: Nature\'s Medicine',
       slug: 'honey-golden-medicine',
-      icon: Droplet,
+      image: 'https://images.unsplash.com/photo-1773957949171-8ccca4580bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600',
       date: 'March 15, 2024',
     },
     {
       title: 'Sustainable Farming',
       slug: 'sustainable-farming-himalayas',
-      icon: Mountain,
+      image: 'https://images.unsplash.com/photo-1686150569507-e41a64f92d68?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600',
       date: 'March 12, 2024',
     },
   ];
@@ -85,10 +87,16 @@ export function BlogDetailPage() {
       </div>
 
       {/* Featured Image */}
-      <div className="container mx-auto px-4 -mt-16 mb-16">
+      <div className="container mx-auto px-4 -mt-16 mb-16 relative z-10">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-white rounded-3xl p-16 shadow-2xl aspect-video flex items-center justify-center">
-            <div className="text-[250px]">{post.image}</div>
+          <div className="bg-white rounded-[32px] p-2 shadow-2xl">
+            <div className="relative aspect-video rounded-[28px] overflow-hidden w-full isolate">
+              <ImageWithFallback
+                src={post.image}
+                alt={post.title}
+                className="w-full h-full object-cover object-center block"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -155,47 +163,45 @@ export function BlogDetailPage() {
       </article>
 
       {/* Related Posts */}
-      <section className="bg-white py-20">
+      <section className="bg-white py-12 md:py-16">
         <div className="container mx-auto px-4">
-          <h2 className="font-serif text-3xl text-[#2a2a2a] mb-8 text-center">Related Articles</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <h2 className="font-serif text-2xl md:text-3xl text-[#1c2a1f] mb-8 text-center">Related Articles</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {relatedPosts.map((relatedPost) => (
-              <TiltCard key={relatedPost.slug} tiltIntensity={10} scaleIntensity={1.03} shadowIntensity={0.25}>
-                <Link to={`/blog/${relatedPost.slug}`} className="group block">
-                  <motion.div
-                    className="glass-card rounded-3xl overflow-hidden shadow-lg"
-                    whileHover={{ y: -8 }}
-                    transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
-                  >
-                    <div className="aspect-video bg-gradient-to-br from-[#4a6741] to-[#5a7851] flex items-center justify-center relative overflow-hidden">
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-br from-[#d4a533]/20 to-transparent"
-                        animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
-                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                      />
-                      <relatedPost.icon className="w-20 h-20 text-white/90 relative z-10 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500" strokeWidth={1.5} />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="font-semibold text-lg text-[#2a2a2a] mb-2 group-hover:text-[#4a6741] transition-colors">
-                        {relatedPost.title}
-                      </h3>
-                      <div className="flex items-center gap-2 text-sm text-[#6b6560]">
-                        <Calendar className="w-4 h-4" />
-                        <span>{relatedPost.date}</span>
-                      </div>
-                    </div>
-                  </motion.div>
-                </Link>
-              </TiltCard>
+              <Link 
+                key={relatedPost.slug}
+                to={`/blog/${relatedPost.slug}`} 
+                className="group flex flex-col h-full overflow-hidden rounded-[30px] bg-[#fcfbf8] border border-[#ece8df] shadow-[0_8px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] block max-w-[420px] mx-auto w-full"
+              >
+                {/* IMAGE */}
+                <div className="relative overflow-hidden h-[240px] shrink-0 w-full">
+                  <ImageWithFallback
+                    src={relatedPost.image}
+                    alt={relatedPost.title}
+                    className="w-full h-full object-cover object-center block transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+                
+                {/* CONTENT */}
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="font-serif font-bold text-[1.15rem] text-[#1c2a1f] mb-3 group-hover:text-[#4a6741] transition-colors leading-snug line-clamp-2">
+                    {relatedPost.title}
+                  </h3>
+                  <div className="flex items-center gap-1.5 text-[13px] font-medium text-[#8a8580] mt-auto">
+                    <Calendar className="w-3.5 h-3.5" />
+                    <span>{relatedPost.date}</span>
+                  </div>
+                </div>
+              </Link>
             ))}
           </div>
-          <div className="text-center mt-12">
+          <div className="text-center mt-10">
             <Link
               to="/blog"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-[#1c3a2b] hover:bg-[#2a4a3b] text-white rounded-full font-semibold transition-colors"
+              className="inline-flex items-center gap-2 px-7 py-3 bg-[#1c3a2b] hover:bg-[#2a4a3b] text-white rounded-full text-[15px] font-semibold transition-colors shadow-md"
             >
               View All Articles
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>

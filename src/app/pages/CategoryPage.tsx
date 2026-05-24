@@ -114,50 +114,43 @@ export function CategoryPage() {
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map(product => (
-            <TiltCard key={product.id} tiltIntensity={10} scaleIntensity={1.03} shadowIntensity={0.25}>
               <Link
                 to={`/product/${product.slug}`}
-                className="group block"
+                key={product.id}
+                className="group flex flex-col h-full overflow-hidden rounded-[30px] bg-[#fcfbf8] border border-[#ece8df] shadow-[0_8px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] block"
               >
-                <motion.div
-                  className="bg-white rounded-2xl overflow-hidden shadow-sm border border-[rgba(0,0,0,0.06)] hover:shadow-xl transition-all duration-500"
-                  whileHover={{ y: -5 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                >
-                  <div className="aspect-[4/3] overflow-hidden relative">
+                  <div className="h-[240px] shrink-0 w-full overflow-hidden relative">
                     <ImageWithFallback
                       src={productImg}
                       alt={product.name}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
                     />
                   </div>
-                  <div className="p-5">
-                    <h3 className="font-semibold text-[#1c2a1f] mb-2">{product.name}</h3>
-                    <div className="flex items-center gap-1.5 mb-3">
+                  <div className="p-6 flex flex-col flex-1">
+                    <h3 className="font-semibold text-[1.1rem] text-[#1c2a1f] mb-2 leading-snug">{product.name}</h3>
+                    <div className="flex items-center gap-1.5 mb-5">
                       <div className="flex">
                         {[...Array(5)].map((_, i) => (
                           <Star key={i} className={`w-3.5 h-3.5 ${i < Math.floor(product.rating) ? 'fill-[#FFB900] text-[#FFB900]' : 'text-gray-200 fill-gray-200'}`} />
                         ))}
                       </div>
-                      <span className="text-xs text-[#9b9590]">({product.reviews})</span>
+                      <span className="text-[12px] font-medium text-[#9b9590]">({product.reviews})</span>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-[#1c3a2b]" style={{ fontSize: '1.1rem' }}>₹{product.price}</span>
+                    <div className="flex items-center justify-between mt-auto pt-2">
+                      <span className="font-bold text-[#1c3a2b]" style={{ fontSize: '1.25rem' }}>₹{product.price}</span>
                       <RippleButton
-                        className="flex items-center gap-1.5 px-4 py-2 bg-[#1c3a2b] hover:bg-[#2a4a3b] text-white rounded-full text-xs font-semibold transition-colors"
+                        className="flex items-center gap-1.5 px-5 py-2.5 bg-[#1c3a2b] hover:bg-[#2a4a3b] text-white rounded-full text-[13px] font-semibold transition-colors duration-300"
                         onClick={(e: React.MouseEvent) => {
                           e.preventDefault();
                           e.stopPropagation();
                         }}
                       >
-                        <ShoppingCart className="w-3.5 h-3.5" />
+                        <ShoppingCart className="w-4 h-4" />
                         Add
                       </RippleButton>
                     </div>
                   </div>
-                </motion.div>
               </Link>
-            </TiltCard>
           ))}
         </div>
 
@@ -168,23 +161,19 @@ export function CategoryPage() {
             {Object.entries(categoryData)
               .filter(([slug]) => slug !== categorySlug)
               .map(([slug, cat]) => (
-                <TiltCard key={slug} tiltIntensity={5} scaleIntensity={1.02} shadowIntensity={0.1}>
-                  <Link to={`/category/${slug}`} className="group text-center block h-full">
-                    <motion.div
-                      className="bg-white rounded-[24px] p-5 border border-[rgba(139,125,107,0.1)] transition-all duration-400 ease-out shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:-translate-y-[4px] hover:shadow-[0_12px_28px_rgba(28,58,43,0.08)] hover:bg-[#fcfbf9] h-full flex flex-col"
-                    >
-                      <div className="aspect-[4/3] rounded-[16px] overflow-hidden mb-4 relative bg-[#f5f0e8]">
+                  <Link to={`/category/${slug}`} key={slug} className="group flex flex-col h-full overflow-hidden rounded-[30px] bg-[#fcfbf8] border border-[#ece8df] shadow-[0_8px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] block text-center">
+                      <div className="h-[200px] shrink-0 w-full overflow-hidden relative bg-[#f5f0e8]">
                         <ImageWithFallback
                           src={categoryImages[slug]}
                           alt={cat.name}
-                          className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.08]"
+                          className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.05]"
                         />
                       </div>
-                      <h3 className="font-semibold text-[15px] text-[#2a2a2a] leading-tight">{cat.name}</h3>
-                      <p className="text-[12px] font-medium text-[#8b7d6b] mt-1.5 opacity-80 group-hover:opacity-100 transition-opacity">Explore Category</p>
-                    </motion.div>
+                      <div className="p-6 flex flex-col flex-1 items-center justify-center">
+                        <h3 className="font-semibold text-[1.1rem] text-[#2a2a2a] leading-tight mb-2">{cat.name}</h3>
+                        <p className="text-[12px] font-medium text-[#8b7d6b] mt-auto opacity-80 group-hover:opacity-100 transition-opacity uppercase tracking-wider">Explore Category</p>
+                      </div>
                   </Link>
-                </TiltCard>
               ))}
           </div>
         </div>

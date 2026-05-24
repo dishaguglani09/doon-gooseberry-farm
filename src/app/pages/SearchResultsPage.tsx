@@ -50,29 +50,26 @@ export function SearchResultsPage() {
         {searchResults.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {searchResults.map(product => (
-              <TiltCard key={product.id} tiltIntensity={10} scaleIntensity={1.03} shadowIntensity={0.15}>
                 <Link
                   to={`/product/${product.slug}`}
-                  className="group block"
+                  key={product.id}
+                  className="group flex flex-col h-full overflow-hidden rounded-[30px] bg-[#fcfbf8] border border-[#ece8df] shadow-[0_8px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] block"
                 >
-                  <motion.div
-                    className="bg-white rounded-3xl overflow-hidden border border-[rgba(139,125,107,0.1)] transition-all duration-400 ease-out shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-[4px] hover:shadow-[0_12px_32px_rgba(28,58,43,0.08)]"
-                  >
-                    <div className="aspect-[4/3] bg-[#f5f0e8] relative overflow-hidden">
+                    <div className="h-[240px] shrink-0 w-full relative overflow-hidden">
                       <ImageWithFallback
                         src={product.image}
                         alt={product.name}
                         className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.05]"
                       />
                     </div>
-                    <div className="p-5 flex flex-col h-full">
-                      <div className="mb-2.5">
-                        <span className="inline-flex items-center px-2.5 py-1 bg-[#f0f4ef] text-[#4a6741] rounded-full text-[11px] font-semibold tracking-wide uppercase">
+                    <div className="p-6 flex flex-col flex-1">
+                      <div className="mb-3">
+                        <span className="inline-flex items-center px-3 py-1.5 bg-[#f0f4ef] text-[#4a6741] rounded-full text-[11px] font-bold tracking-wide uppercase">
                           {product.category}
                         </span>
                       </div>
-                      <h3 className="font-semibold text-[15px] text-[#2a2a2a] mb-1.5 leading-snug">{product.name}</h3>
-                      <div className="flex items-center gap-1.5 mb-4">
+                      <h3 className="font-semibold text-[1.1rem] text-[#2a2a2a] mb-2 leading-snug">{product.name}</h3>
+                      <div className="flex items-center gap-1.5 mb-5">
                         <div className="flex items-center">
                           {[...Array(5)].map((_, i) => (
                             <Star
@@ -85,10 +82,10 @@ export function SearchResultsPage() {
                         </div>
                         <span className="text-[12px] font-medium text-[#8b7d6b]">({product.reviews})</span>
                       </div>
-                      <div className="mt-auto flex items-center justify-between">
-                        <span className="text-lg font-bold text-[#1c3a2b]">₹{product.price}</span>
+                      <div className="mt-auto flex items-center justify-between pt-2">
+                        <span className="text-[1.25rem] font-bold text-[#1c3a2b]">₹{product.price}</span>
                         <RippleButton
-                          className="px-4 py-2 bg-[#1c3a2b] hover:bg-[#2a4a3b] text-white rounded-full text-xs font-semibold transition-colors duration-300"
+                          className="px-5 py-2.5 bg-[#1c3a2b] hover:bg-[#2a4a3b] text-white rounded-full text-[13px] font-semibold transition-colors duration-300"
                           onClick={(e: React.MouseEvent) => {
                             e.preventDefault();
                             e.stopPropagation();
@@ -99,9 +96,7 @@ export function SearchResultsPage() {
                         </RippleButton>
                       </div>
                     </div>
-                  </motion.div>
                 </Link>
-              </TiltCard>
             ))}
           </div>
         ) : (

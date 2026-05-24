@@ -159,45 +159,47 @@ export function ContactPage() {
           <ScrollReveal delay={0.2}>
             <div>
               <h2 className="font-serif text-3xl text-[#2a2a2a] mb-6">Contact Information</h2>
-              <div className="space-y-6 mb-12">
+              <div className="space-y-4 mb-8">
                 {contactInfo.map((info, index) => (
-                  <TiltCard key={index} tiltIntensity={8} scaleIntensity={1.02} shadowIntensity={0.15}>
-                    <div className="flex gap-4 glass-card rounded-2xl p-6">
-                      <div className="w-14 h-14 bg-gradient-to-br from-[#4a6741] to-[#5a7851] rounded-2xl flex items-center justify-center text-white shrink-0 shadow-lg">
-                        {info.icon}
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-lg text-[#2a2a2a] mb-2">{info.title}</h3>
+                  <motion.div
+                    key={index}
+                    className="flex items-center gap-5 bg-white rounded-[24px] py-6 px-7 shadow-[0_8px_24px_rgba(0,0,0,0.03)] border border-[#f0ebe1] hover:shadow-[0_12px_32px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300"
+                  >
+                    <div className="w-[50px] h-[50px] bg-[#4a6741] rounded-full flex items-center justify-center text-white shrink-0">
+                      {info.icon}
+                    </div>
+                    <div>
+                      <h3 className="font-serif font-bold text-[1.1rem] text-[#1c2a1f] mb-1">{info.title}</h3>
+                      <div className="space-y-0.5">
                         {info.details.map((detail, i) => (
-                          <p key={i} className="text-[#6b6560]">
+                          <p key={i} className="text-[#6b6560] text-[15px]">
                             {detail}
                           </p>
                         ))}
                       </div>
                     </div>
-                  </TiltCard>
+                  </motion.div>
                 ))}
               </div>
 
               {/* Map */}
-              <TiltCard tiltIntensity={10} scaleIntensity={1.02} shadowIntensity={0.25}>
-                <div className="bg-gradient-to-br from-[#4a6741] to-[#5a7851] rounded-2xl p-12 text-white text-center">
-                  <div className="w-20 h-20 mx-auto mb-4 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                    <MapPin className="w-12 h-12 text-white" strokeWidth={1.5} />
-                  </div>
-                  <h3 className="font-semibold text-xl mb-2">Visit Our Farm</h3>
-                  <p className="text-[rgba(255,255,255,0.9)] mb-6">
-                    Experience organic farming firsthand
-                  </p>
-                  <MagneticButton strength={0.2}>
-                    <GlowEffect glowColor="#ffffff" intensity={25}>
-                      <RippleButton className="px-8 py-4 bg-white text-[#4a6741] rounded-full font-semibold hover:bg-[#f5f0e8] transition-all duration-500 shadow-lg hover:shadow-xl hover:scale-105">
-                        Get Directions
-                      </RippleButton>
-                    </GlowEffect>
-                  </MagneticButton>
+              <motion.div
+                className="bg-gradient-to-r from-[#4a6741] to-[#364d2f] rounded-[24px] py-8 px-7 text-white text-center flex flex-col items-center justify-center shadow-[0_12px_32px_rgba(74,103,65,0.25)] relative overflow-hidden group"
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="absolute top-4 left-4 w-2 h-2 rounded-full bg-[#d4a533]/50 animate-pulse" />
+                <div className="w-14 h-14 mx-auto mb-4 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-500">
+                  <MapPin className="w-6 h-6 text-white" strokeWidth={2} />
                 </div>
-              </TiltCard>
+                <h3 className="font-serif font-bold text-2xl mb-1.5">Visit Our Farm</h3>
+                <p className="text-white/80 text-[15px] mb-6">
+                  Experience organic farming firsthand
+                </p>
+                <RippleButton className="px-8 py-3 bg-white text-[#4a6741] rounded-full font-semibold hover:bg-[#f5f0e8] transition-colors shadow-md text-[15px]">
+                  Get Directions
+                </RippleButton>
+              </motion.div>
             </div>
           </ScrollReveal>
         </div>

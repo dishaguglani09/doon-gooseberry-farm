@@ -108,7 +108,17 @@ export function Header() {
                 )}
               </AnimatePresence>
             </div>
-            <Link to="/our-story" className="text-[#2a2a2a] hover:text-[#4a6741] font-medium transition-all duration-300 hover:scale-105 link-underline">
+            <Link 
+              to="/#our-story" 
+              onClick={(e) => {
+                const element = document.getElementById('our-story');
+                if (element) {
+                  e.preventDefault();
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="text-[#2a2a2a] hover:text-[#4a6741] font-medium transition-all duration-300 hover:scale-105 link-underline"
+            >
               Our Story
             </Link>
             <Link to="/blog" className="text-[#2a2a2a] hover:text-[#4a6741] font-medium transition-all duration-300 hover:scale-105 link-underline">
@@ -151,13 +161,14 @@ export function Header() {
                 </AnimatePresence>
               </motion.div>
             </Link>
-            <Link to="/login" className="hidden md:block">
+            <Link to="/login" className="hidden md:flex items-center">
               <motion.div
-                className="p-2.5 rounded-full hover:bg-[#f5f0e8] transition-colors"
-                whileHover={{ scale: 1.1 }}
+                className="px-4 py-2 rounded-full hover:bg-[#f5f0e8] border border-transparent transition-colors flex items-center gap-2"
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <User className="w-5 h-5 text-[#2a2a2a]" />
+                <User className="w-4 h-4 text-[#2a2a2a]" />
+                <span className="text-[#2a2a2a] text-[14px] font-semibold whitespace-nowrap">Login / Register</span>
               </motion.div>
             </Link>
             <Link to="/cart" className="relative">
@@ -239,8 +250,15 @@ export function Header() {
                 )}
               </div>
               <Link
-                to="/our-story"
-                onClick={() => setIsMobileMenuOpen(false)}
+                to="/#our-story"
+                onClick={(e) => {
+                  const element = document.getElementById('our-story');
+                  if (element) {
+                    e.preventDefault();
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                  setIsMobileMenuOpen(false);
+                }}
                 className="text-[#2a2a2a] hover:text-[#4a6741] font-medium py-2"
               >
                 Our Story

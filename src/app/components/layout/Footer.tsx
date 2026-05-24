@@ -6,7 +6,7 @@ import { ImageWithFallback } from '../figma/ImageWithFallback';
 export function Footer() {
   const quickLinks = [
     { label: 'All Products', to: '/products' },
-    { label: 'Our Story', to: '/our-story' },
+    { label: 'Our Story', to: '/#our-story' },
     { label: 'Blog', to: '/blog' },
     { label: 'Contact Us', to: '/contact' },
     { label: 'FAQs', to: '/faq' },
@@ -95,6 +95,16 @@ export function Footer() {
                 <li key={to}>
                   <Link
                     to={to}
+                    onClick={(e) => {
+                      if (to.startsWith('/#')) {
+                        const id = to.replace('/#', '');
+                        const element = document.getElementById(id);
+                        if (element) {
+                          e.preventDefault();
+                          element.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }
+                    }}
                     className="group flex items-center gap-2 text-white/45 hover:text-[#d4a533] text-sm transition-colors duration-300"
                   >
                     <ArrowRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
