@@ -24,6 +24,7 @@ const sampleProducts: Product[] = [
   {
     id: 1,
     name: "Himalayan Mango Pickle",
+    slug: "himalayan-mango-pickle",
     description: "Slow-cooked in mustard oil with Himalayan spices",
     price: 349,
     image: "https://images.unsplash.com/photo-1599639957043-f3aa5c986398?w=600&h=600&fit=crop",
@@ -37,6 +38,7 @@ const sampleProducts: Product[] = [
   {
     id: 2,
     name: "Wild Berry Jam",
+    slug: "wild-berry-jam",
     description: "Handcrafted from wild Himalayan berries",
     price: 299,
     image: "https://images.unsplash.com/photo-1620061589361-e3684bf06699?w=600&h=600&fit=crop",
@@ -50,6 +52,7 @@ const sampleProducts: Product[] = [
   {
     id: 3,
     name: "Fresh Amla Juice",
+    slug: "fresh-amla-juice",
     description: "Cold-pressed from organic Himalayan amla",
     price: 249,
     image: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=600&h=600&fit=crop",
@@ -63,6 +66,7 @@ const sampleProducts: Product[] = [
   {
     id: 4,
     name: "Mint Coriander Chutney",
+    slug: "mint-coriander-chutney",
     description: "Fresh herbs with a perfect spice balance",
     price: 179,
     image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600&h=600&fit=crop",
@@ -76,6 +80,7 @@ const sampleProducts: Product[] = [
   {
     id: 5,
     name: "Organic Turmeric Powder",
+    slug: "organic-turmeric-powder",
     description: "Sun-dried and stone-ground at source",
     price: 199,
     image: "https://images.unsplash.com/photo-1615485500834-bc10199bc5ed?w=600&h=600&fit=crop",
@@ -89,6 +94,7 @@ const sampleProducts: Product[] = [
   {
     id: 6,
     name: "Honey Ginger Candies",
+    slug: "honey-ginger-candies",
     description: "Handmade with wild honey and fresh ginger",
     price: 149,
     image: "https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=600&h=600&fit=crop",
@@ -102,6 +108,7 @@ const sampleProducts: Product[] = [
   {
     id: 7,
     name: "Mixed Fruit Chutney",
+    slug: "mixed-fruit-chutney",
     description: "Seasonal fruits with aromatic spices",
     price: 229,
     image: "https://images.unsplash.com/photo-1589621316382-008455b857cd?w=600&h=600&fit=crop",
@@ -115,6 +122,7 @@ const sampleProducts: Product[] = [
   {
     id: 8,
     name: "Wild Himalayan Honey",
+    slug: "wild-himalayan-honey",
     description: "Raw honey from mountain wildflowers",
     price: 449,
     originalPrice: 549,
@@ -129,6 +137,7 @@ const sampleProducts: Product[] = [
   {
     id: 9,
     name: "Garlic Pickle",
+    slug: "garlic-pickle",
     description: "Aged garlic in aromatic mustard oil",
     price: 279,
     image: "https://images.unsplash.com/photo-1628418876641-3564530e2c8a?w=600&h=600&fit=crop",
@@ -142,6 +151,7 @@ const sampleProducts: Product[] = [
   {
     id: 10,
     name: "Apricot Jam",
+    slug: "apricot-jam",
     description: "Sun-ripened Himalayan apricots",
     price: 319,
     image: "https://images.unsplash.com/photo-1557925923-cd4648e211a0?w=600&h=600&fit=crop",
@@ -155,6 +165,7 @@ const sampleProducts: Product[] = [
   {
     id: 11,
     name: "Red Chili Powder",
+    slug: "red-chili-powder",
     description: "Handpicked and sun-dried Himalayan chilies",
     price: 159,
     image: "https://images.unsplash.com/photo-1583535437827-c9d67c7e3e6a?w=600&h=600&fit=crop",
@@ -168,6 +179,7 @@ const sampleProducts: Product[] = [
   {
     id: 12,
     name: "Lemon Pickle",
+    slug: "lemon-pickle",
     description: "Tangy preserved lemons in traditional spices",
     price: 269,
     image: "https://images.unsplash.com/photo-1587486937467-0469fae82d63?w=600&h=600&fit=crop",

@@ -117,13 +117,13 @@ export function LoginPage() {
                 >
                   <label className="block text-[13px] font-medium text-[rgba(255,255,255,0.72)] mb-2 tracking-wide uppercase">Full Name</label>
                   <div className="relative group">
-                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[rgba(255,255,255,0.72)] group-focus-within:text-[rgba(255,255,255,0.92)] transition-all duration-300" />
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#d8ffe1] group-focus-within:text-white transition-all duration-300" />
                     <input
                       type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="John Doe"
-                      className="w-full pl-[3.25rem] pr-4 py-3.5 bg-black/10 shadow-[inset_0_2px_4px_rgba(0,0,0,0.1)] rounded-[18px] border border-[rgba(210,240,210,0.22)] text-white placeholder-white/20 focus:outline-none focus:border-[#78b478]/50 focus:bg-black/20 focus:ring-4 focus:ring-[rgba(120,180,120,0.15)] transition-all duration-300"
+                      className="w-full pl-[3.25rem] pr-4 py-3.5 bg-[rgba(20,25,20,0.85)] shadow-[inset_0_2px_4px_rgba(0,0,0,0.2)] rounded-[18px] border border-[rgba(120,255,120,0.2)] text-white caret-[#9effa1] placeholder-[rgba(255,255,255,0.45)] focus:outline-none focus:border-[rgba(120,255,120,0.4)] focus:bg-[rgba(20,25,20,0.95)] focus:ring-[3px] focus:ring-[rgba(120,255,120,0.08)] transition-all duration-300 ease-out login-input"
                     />
                   </div>
                 </motion.div>
@@ -133,13 +133,13 @@ export function LoginPage() {
             <div>
               <label className="block text-[13px] font-medium text-[rgba(255,255,255,0.72)] mb-2 tracking-wide uppercase">Email</label>
               <div className="relative group">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[rgba(255,255,255,0.72)] group-focus-within:text-[rgba(255,255,255,0.92)] transition-all duration-300" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#d8ffe1] group-focus-within:text-white transition-all duration-300" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="john@example.com"
-                  className="w-full pl-[3.25rem] pr-4 py-3.5 bg-black/10 shadow-[inset_0_2px_4px_rgba(0,0,0,0.1)] rounded-[18px] border border-[rgba(210,240,210,0.22)] text-white placeholder-white/20 focus:outline-none focus:border-[#78b478]/50 focus:bg-black/20 focus:ring-4 focus:ring-[rgba(120,180,120,0.15)] transition-all duration-300"
+                  placeholder="example@gmail.com"
+                  className="w-full pl-[3.25rem] pr-4 py-3.5 bg-[rgba(20,25,20,0.85)] shadow-[inset_0_2px_4px_rgba(0,0,0,0.2)] rounded-[18px] border border-[rgba(120,255,120,0.2)] text-white caret-[#9effa1] placeholder-[rgba(255,255,255,0.45)] focus:outline-none focus:border-[rgba(120,255,120,0.4)] focus:bg-[rgba(20,25,20,0.95)] focus:ring-[3px] focus:ring-[rgba(120,255,120,0.08)] transition-all duration-300 ease-out login-input"
                 />
               </div>
             </div>
@@ -147,18 +147,18 @@ export function LoginPage() {
             <div>
               <label className="block text-[13px] font-medium text-[rgba(255,255,255,0.72)] mb-2 tracking-wide uppercase">Password</label>
               <div className="relative group">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[rgba(255,255,255,0.72)] group-focus-within:text-[rgba(255,255,255,0.92)] transition-all duration-300" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#d8ffe1] group-focus-within:text-white transition-all duration-300" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-[3.25rem] pr-12 py-3.5 bg-black/10 shadow-[inset_0_2px_4px_rgba(0,0,0,0.1)] rounded-[18px] border border-[rgba(210,240,210,0.22)] text-white placeholder-white/20 focus:outline-none focus:border-[#78b478]/50 focus:bg-black/20 focus:ring-4 focus:ring-[rgba(120,180,120,0.15)] transition-all duration-300"
+                  className="w-full pl-[3.25rem] pr-12 py-3.5 bg-[rgba(20,25,20,0.85)] shadow-[inset_0_2px_4px_rgba(0,0,0,0.2)] rounded-[18px] border border-[rgba(120,255,120,0.2)] text-white caret-[#9effa1] placeholder-[rgba(255,255,255,0.45)] focus:outline-none focus:border-[rgba(120,255,120,0.4)] focus:bg-[rgba(20,25,20,0.95)] focus:ring-[3px] focus:ring-[rgba(120,255,120,0.08)] transition-all duration-300 ease-out login-input"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[rgba(255,255,255,0.72)] hover:text-white transition-colors duration-300"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#d8ffe1] hover:text-white transition-colors duration-300"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>

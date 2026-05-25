@@ -10,6 +10,10 @@ import { RippleButton } from '../components/effects/RippleButton';
 import { ParallaxSection } from '../components/effects/ParallaxSection';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { StorySection } from '../components/sections/StorySection';
+import { useWishlist } from '../contexts/WishlistContext';
+import { useNavigate } from 'react-router';
+import ProductCard from '../components/shop/ProductCard';
+import { products } from '../data/products';
 
 const HERO_BG = 'https://images.unsplash.com/photo-1765883958680-bfc9345be81b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920';
 const FARM_WOMEN = 'https://images.unsplash.com/photo-1755353545156-ae3525d9b676?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=900';
@@ -18,56 +22,12 @@ const TERRACED_FARM = 'https://images.unsplash.com/photo-1763809678352-0f9ca8adb
 const TEA_HILLS = 'https://images.unsplash.com/photo-1772089003655-6b1fdbf74282?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=900';
 
 export function HomePage() {
-  const featuredProducts = [
-    {
-      id: 1,
-      name: 'Himalayan Mango Pickle',
-      slug: 'himalayan-mango-pickle',
-      price: 349,
-      originalPrice: 449,
-      image: 'https://images.unsplash.com/photo-1562346816-9d0bdd559ec1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600',
-      rating: 4.8,
-      reviews: 124,
-      badge: 'Best Seller',
-      badgeColor: '#1c3a2b',
-    },
-    {
-      id: 2,
-      name: 'Organic Honey',
-      slug: 'organic-honey',
-      price: 499,
-      originalPrice: 599,
-      image: 'https://images.unsplash.com/photo-1773957949171-8ccca4580bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600',
-      rating: 4.9,
-      reviews: 89,
-      badge: 'Premium',
-      badgeColor: '#b8902c',
-    },
-    {
-      id: 3,
-      name: 'Mixed Fruit Murabba',
-      slug: 'mixed-fruit-murabba',
-      price: 299,
-      originalPrice: 399,
-      image: 'https://images.unsplash.com/photo-1667653052149-f4cdc800e9f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600',
-      rating: 4.7,
-      reviews: 156,
-      badge: 'New',
-      badgeColor: '#4a6741',
-    },
-    {
-      id: 4,
-      name: 'Amla Juice',
-      slug: 'amla-juice',
-      price: 249,
-      originalPrice: 299,
-      image: 'https://images.unsplash.com/photo-1759006249055-8c4030a2d56a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600',
-      rating: 4.6,
-      reviews: 98,
-      badge: 'Trending',
-      badgeColor: '#2a4a3b',
-    },
-  ];
+  const { isInWishlist, toggleWishlist } = useWishlist();
+  const navigate = useNavigate();
+
+  const featuredItems = products.filter(p => 
+    ['himalayan-mango-pickle', 'organic-honey', 'mixed-fruit-murabba', 'amla-juice'].includes(p.slug)
+  );
 
   const categories = [
     {
@@ -329,63 +289,11 @@ export function HomePage() {
           </ScrollReveal>
 
           <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredProducts.map((product) => (
+            {featuredItems.map((product) => (
               <StaggerItem key={product.id}>
-                <Link to={`/product/${product.slug}`} className="group flex flex-col h-full overflow-hidden rounded-[30px] bg-[#fcfbf8] border border-[#ece8df] shadow-[0_8px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] block">
-                    <div className="relative overflow-hidden h-[240px] shrink-0 w-full">
-                      <ImageWithFallback
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
-                      {product.badge && (
-                        <div
-                          className="absolute top-3 left-3 px-3 py-1 text-white text-xs font-semibold rounded-full"
-                          style={{ background: product.badgeColor }}
-                        >
-                          {product.badge}
-                        </div>
-                      )}
-                      <motion.button
-                        className="absolute top-3 right-3 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-sm hover:bg-red-50"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
-                      >
-                        <Heart className="w-4 h-4 text-[#6b6560]" />
-                      </motion.button>
-                    </div>
-
-                    <div className="p-6 flex flex-col flex-1">
-                      <h3 className="font-semibold text-[1.1rem] text-[#1c2a1f] mb-2 leading-snug">{product.name}</h3>
-                      <div className="flex items-center gap-1.5 mb-5">
-                        <div className="flex">
-                          {[...Array(5)].map((_, i) => (
-                            <Star key={i} className={`w-3.5 h-3.5 ${i < Math.floor(product.rating) ? 'fill-[#FFB900] text-[#FFB900]' : 'text-gray-200 fill-gray-200'}`} />
-                          ))}
-                        </div>
-                        <span className="text-xs text-[#9b9590]">({product.reviews})</span>
-                      </div>
-                      <div className="flex items-center justify-between mt-auto">
-                        <div>
-                          <span className="font-bold text-[#1c3a2b]" style={{ fontSize: '1.25rem' }}>₹{product.price}</span>
-                          {product.originalPrice && (
-                            <span className="text-sm text-[#9b9590] line-through ml-2">₹{product.originalPrice}</span>
-                          )}
-                        </div>
-                        <GlowEffect glowColor="#1c3a2b" intensity={18}>
-                          <RippleButton
-                            className="flex items-center gap-1.5 px-5 py-2.5 bg-[#1c3a2b] hover:bg-[#2a4a3b] text-white rounded-full text-[13px] font-semibold transition-all duration-300 shadow hover:shadow-lg"
-                            onClick={(e: React.MouseEvent) => { e.preventDefault(); e.stopPropagation(); }}
-                          >
-                            <ShoppingCart className="w-4 h-4" />
-                            Add
-                          </RippleButton>
-                        </GlowEffect>
-                      </div>
-                    </div>
-                </Link>
+                <div className="h-full">
+                  <ProductCard product={product} onQuickView={(p) => navigate('/product/' + p.slug)} />
+                </div>
               </StaggerItem>
             ))}
           </StaggerChildren>
@@ -612,50 +520,7 @@ export function HomePage() {
       </section>
 
 
-      {/* ─── Newsletter CTA ───────────────────────────── */}
-      <section className="relative py-28 overflow-hidden">
-        <ImageWithFallback
-          src="https://images.unsplash.com/photo-1772089004439-882c469db998?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920"
-          alt="Misty mountains organic farm"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ filter: 'brightness(0.25) saturate(0.8)' }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1c3a2b]/85 to-[#0d1f18]/80" />
 
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-2xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-            >
-              <p className="text-[#d4a533] text-sm font-semibold tracking-[0.12em] uppercase mb-4">Stay Connected</p>
-              <h2 className="font-serif text-[clamp(2rem,4vw,3rem)] text-white mb-5">
-                Join Our Organic Community
-              </h2>
-              <p className="text-white/70 mb-10 leading-relaxed">
-                Receive exclusive offers, seasonal recipes, wellness tips, and stories from our farm — delivered monthly.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
-                <input
-                  type="email"
-                  placeholder="Your email address"
-                  className="flex-1 px-6 py-4 rounded-full bg-white/12 border border-white/20 text-white placeholder-white/45 backdrop-blur-md focus:outline-none focus:border-[#d4a533]/60 transition-colors"
-                />
-                <MagneticButton strength={0.2}>
-                  <GlowEffect glowColor="#d4a533" intensity={25}>
-                    <RippleButton className="px-7 py-4 bg-gradient-to-r from-[#d4a533] to-[#c49a2e] hover:from-[#e5b644] hover:to-[#d4a533] text-white rounded-full font-semibold whitespace-nowrap transition-all duration-300 shadow-lg hover:shadow-2xl">
-                      Subscribe
-                    </RippleButton>
-                  </GlowEffect>
-                </MagneticButton>
-              </div>
-              <p className="text-white/40 text-xs mt-4">No spam, ever. Unsubscribe anytime.</p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

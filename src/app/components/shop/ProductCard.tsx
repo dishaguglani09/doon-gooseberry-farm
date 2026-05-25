@@ -1,15 +1,40 @@
-import { motion } from "motion/react";
-import { Heart, ShoppingBag, Star } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { Heart, ShoppingBag, Star, Check, Loader2 } from "lucide-react";
 import { Product, useWishlist } from '../../contexts/WishlistContext';
+import { useNavigate } from "react-router";
+import { useToast } from "../../contexts/ToastContext";
+import WishlistButton from "./WishlistButton";
 
 interface ProductCardProps {
   product: Product;
-  onQuickView: (product: Product) => void;
+  onQuickView?: (product: Product) => void;
 }
 
 export default function ProductCard({ product, onQuickView }: ProductCardProps) {
-  const { isInWishlist, toggleWishlist } = useWishlist();
-  const isWishlisted = isInWishlist(product.id);
+  const navigate = useNavigate();
+  const { showToast } = useToast();
+  
+  const [isAdding, setIsAdding] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    if (isAdding || isAdded) return;
+    
+    setIsAdding(true);
+    // Simulate API call for adding to cart
+    setTimeout(() => {
+      setIsAdding(false);
+      setIsAdded(true);
+      showToast("Added to cart", "success");
+      
+      setTimeout(() => {
+        setIsAdded(false);
+      }, 1500);
+    }, 600);
+  };
   const categoryColors: Record<string, string> = {
     Pickles: "#ea580c",
     Chutneys: "#16a34a",
@@ -36,16 +61,16 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
       whileHover="hover"
-      className="group flex flex-col h-full overflow-hidden rounded-[30px] bg-[#fcfbf8] border border-[#ece8df] shadow-[0_8px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] relative cursor-pointer"
-      onClick={() => onQuickView(product)}
+      className="group flex flex-col h-full overflow-hidden rounded-[30px] bg-[#fcfbf8] border border-[#ece8df] shadow-[0_8px_30px_rgba(0,0,0,0.05)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[6px] hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] relative cursor-pointer"
+      onClick={() => navigate(`/product/${product.slug || product.id}`)}
     >
       {/* Image Container */}
       <div className="relative h-[240px] shrink-0 w-full overflow-hidden bg-cream">
         <motion.img
           variants={{
-            hover: { scale: 1.08 }
+            hover: { scale: 1.04 }
           }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           src={product.image}
           alt={product.name}
           className="w-full h-full object-cover"
@@ -70,51 +95,36 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
           </div>
         </div>
 
-        {/* Wishlist Heart - Always Visible, Top Right */}
-        <motion.button
-          variants={{
-            hover: { scale: 1.1 }
-          }}
-          whileTap={{ scale: 0.95 }}
-          animate={isWishlisted ? { scale: [1, 1.15, 1] } : {}}
-          transition={isWishlisted ? { duration: 0.3, ease: "easeOut" } : {}}
-          onClick={(e) => {
-            e.stopPropagation();
-            toggleWishlist(product);
-          }}
-          className="absolute top-4 right-4 p-3 rounded-full backdrop-blur-xl transition-all z-10"
-          style={{ backgroundColor: 'rgba(250, 250, 248, 0.95)' }}
-        >
-          <Heart
-            className={`w-5 h-5 transition-colors duration-300 ${
-              isWishlisted ? "fill-red-500 text-red-500" : "text-forest"
-            }`}
-          />
-        </motion.button>
+        {/* Wishlist Heart - Floats in gently on desktop, always visible on mobile */}
+        <div className="absolute top-[14px] right-[14px] z-10 opacity-90 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300 ease-out">
+          <WishlistButton product={product} />
+        </div>
 
         {/* Quick View Overlay */}
-        <motion.div
-          variants={{
-            hover: { opacity: 1, y: 0 }
-          }}
-          initial={{ opacity: 0, y: 20 }}
-          className="absolute bottom-4 left-4 right-4"
-        >
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onQuickView(product);
+        {onQuickView && (
+          <motion.div
+            variants={{
+              hover: { opacity: 1, y: 0 }
             }}
-            className="w-full px-6 py-3 rounded-2xl font-semibold text-sm backdrop-blur-xl border-2 transition-all"
-            style={{
-              backgroundColor: 'rgba(250, 250, 248, 0.95)',
-              borderColor: 'rgba(28, 58, 43, 0.2)',
-              color: 'var(--forest)'
-            }}
+            initial={{ opacity: 0, y: 20 }}
+            className="absolute bottom-4 left-4 right-4 z-20"
           >
-            Quick View
-          </button>
-        </motion.div>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onQuickView(product);
+              }}
+              className="w-full px-6 py-3 rounded-2xl font-semibold text-sm backdrop-blur-xl border-2 transition-all"
+              style={{
+                backgroundColor: 'rgba(250, 250, 248, 0.95)',
+                borderColor: 'rgba(28, 58, 43, 0.2)',
+                color: 'var(--forest)'
+              }}
+            >
+              Quick View
+            </button>
+          </motion.div>
+        )}
       </div>
 
       {/* Product Details */}
@@ -159,23 +169,51 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
           </div>
 
           <motion.button
-            variants={{
-              hover: { scale: 1.05, y: -2 }
-            }}
+            whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            onClick={(e) => {
-              e.stopPropagation();
-              // Add to cart logic
-            }}
-            className="px-5 py-3 rounded-xl font-semibold text-sm flex items-center gap-2 transition-all"
+            onClick={handleAddToCart}
+            className="px-5 py-3 rounded-xl font-semibold text-sm flex items-center gap-2 transition-all duration-250 ease-out z-20"
             style={{
-              background: 'var(--amla-gold)',
-              color: 'var(--forest)',
-              boxShadow: 'var(--shadow-md)'
+              background: isAdded ? 'var(--forest)' : 'var(--amla-gold)',
+              color: isAdded ? 'var(--cream)' : 'var(--forest)',
+              boxShadow: 'var(--shadow-md)',
+              touchAction: 'manipulation'
             }}
           >
-            <ShoppingBag className="w-4 h-4" />
-            Add to Jar
+            <AnimatePresence mode="wait">
+              {isAdding ? (
+                <motion.div
+                  key="loading"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                >
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                </motion.div>
+              ) : isAdded ? (
+                <motion.div
+                  key="added"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  className="flex items-center gap-1.5"
+                >
+                  <Check className="w-4 h-4" />
+                  <span>Added</span>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="add"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  className="flex items-center gap-1.5"
+                >
+                  <ShoppingBag className="w-4 h-4" />
+                  <span>Add</span>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.button>
         </div>
 

@@ -371,3 +371,13 @@
 .font-accent {
   font-family: var(--font-accent);
 }
+
+/* Login Input Autofill Overrides */
+input.login-input:-webkit-autofill,
+input.login-input:-webkit-autofill:hover,
+input.login-input:-webkit-autofill:focus,
+input.login-input:-webkit-autofill:active {
+  -webkit-text-fill-color: white !important;
+  transition: background-color 9999s ease-in-out 0s;
+  box-shadow: 0 0 0px 1000px rgba(20,25,20,0.95) inset !important;
+}

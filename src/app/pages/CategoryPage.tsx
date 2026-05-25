@@ -2,8 +2,9 @@ import { useParams, Link } from 'react-router';
 import { Star, ArrowRight, Package, Sparkles, Cherry, Droplet, Leaf, ShoppingCart } from 'lucide-react';
 import { motion } from 'motion/react';
 import { TiltCard } from '../components/effects/TiltCard';
-import { RippleButton } from '../components/effects/RippleButton';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import ProductCard from '../components/shop/ProductCard';
+import { Product } from '../contexts/WishlistContext';
 
 export function CategoryPage() {
   const { categorySlug } = useParams();
@@ -66,13 +67,13 @@ export function CategoryPage() {
 
   const productImg = categoryImages[categorySlug || 'pickles'] || categoryImages.pickles;
 
-  const products = [
-    { id: 1, name: `Himalayan ${category.name}`, slug: `himalayan-${categorySlug}`, price: 349, rating: 4.8, reviews: 124 },
-    { id: 2, name: `Organic ${category.name}`, slug: `organic-${categorySlug}`, price: 299, rating: 4.7, reviews: 89 },
-    { id: 3, name: `Premium ${category.name}`, slug: `premium-${categorySlug}`, price: 449, rating: 4.9, reviews: 156 },
-    { id: 4, name: `Traditional ${category.name}`, slug: `traditional-${categorySlug}`, price: 399, rating: 4.6, reviews: 98 },
-    { id: 5, name: `Special ${category.name}`, slug: `special-${categorySlug}`, price: 499, rating: 4.8, reviews: 142 },
-    { id: 6, name: `Classic ${category.name}`, slug: `classic-${categorySlug}`, price: 329, rating: 4.7, reviews: 67 },
+  const products: Product[] = [
+    { id: 1, name: `Himalayan ${category.name}`, slug: `himalayan-${categorySlug}`, price: 349, rating: 4.8, reviews: 124, description: category.description, inStock: true, image: productImg, category: category.name },
+    { id: 2, name: `Organic ${category.name}`, slug: `organic-${categorySlug}`, price: 299, rating: 4.7, reviews: 89, description: category.description, inStock: true, image: productImg, category: category.name },
+    { id: 3, name: `Premium ${category.name}`, slug: `premium-${categorySlug}`, price: 449, rating: 4.9, reviews: 156, description: category.description, inStock: true, image: productImg, category: category.name },
+    { id: 4, name: `Traditional ${category.name}`, slug: `traditional-${categorySlug}`, price: 399, rating: 4.6, reviews: 98, description: category.description, inStock: true, image: productImg, category: category.name },
+    { id: 5, name: `Special ${category.name}`, slug: `special-${categorySlug}`, price: 499, rating: 4.8, reviews: 142, description: category.description, inStock: true, image: productImg, category: category.name },
+    { id: 6, name: `Classic ${category.name}`, slug: `classic-${categorySlug}`, price: 329, rating: 4.7, reviews: 67, description: category.description, inStock: true, image: productImg, category: category.name },
   ];
 
   return (
@@ -114,43 +115,7 @@ export function CategoryPage() {
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map(product => (
-              <Link
-                to={`/product/${product.slug}`}
-                key={product.id}
-                className="group flex flex-col h-full overflow-hidden rounded-[30px] bg-[#fcfbf8] border border-[#ece8df] shadow-[0_8px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] block"
-              >
-                  <div className="h-[240px] shrink-0 w-full overflow-hidden relative">
-                    <ImageWithFallback
-                      src={productImg}
-                      alt={product.name}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
-                    />
-                  </div>
-                  <div className="p-6 flex flex-col flex-1">
-                    <h3 className="font-semibold text-[1.1rem] text-[#1c2a1f] mb-2 leading-snug">{product.name}</h3>
-                    <div className="flex items-center gap-1.5 mb-5">
-                      <div className="flex">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className={`w-3.5 h-3.5 ${i < Math.floor(product.rating) ? 'fill-[#FFB900] text-[#FFB900]' : 'text-gray-200 fill-gray-200'}`} />
-                        ))}
-                      </div>
-                      <span className="text-[12px] font-medium text-[#9b9590]">({product.reviews})</span>
-                    </div>
-                    <div className="flex items-center justify-between mt-auto pt-2">
-                      <span className="font-bold text-[#1c3a2b]" style={{ fontSize: '1.25rem' }}>₹{product.price}</span>
-                      <RippleButton
-                        className="flex items-center gap-1.5 px-5 py-2.5 bg-[#1c3a2b] hover:bg-[#2a4a3b] text-white rounded-full text-[13px] font-semibold transition-colors duration-300"
-                        onClick={(e: React.MouseEvent) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                        }}
-                      >
-                        <ShoppingCart className="w-4 h-4" />
-                        Add
-                      </RippleButton>
-                    </div>
-                  </div>
-              </Link>
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
 

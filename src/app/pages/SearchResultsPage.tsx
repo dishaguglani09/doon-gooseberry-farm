@@ -2,18 +2,18 @@ import { useState } from 'react';
 import { Link } from 'react-router';
 import { Search, Star, Filter } from 'lucide-react';
 import { motion } from 'motion/react';
-import { TiltCard } from '../components/effects/TiltCard';
-import { RippleButton } from '../components/effects/RippleButton';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import ProductCard from '../components/shop/ProductCard';
+import { Product } from '../contexts/WishlistContext';
 
 export function SearchResultsPage() {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const searchResults = [
-    { id: 1, name: 'Himalayan Mango Pickle', slug: 'himalayan-mango-pickle', category: 'Pickles', price: 349, image: 'https://images.unsplash.com/photo-1562346816-9d0bdd559ec1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600', rating: 4.8, reviews: 124 },
-    { id: 2, name: 'Mixed Fruit Murabba', slug: 'mixed-fruit-murabba', category: 'Murabba', price: 299, image: 'https://images.unsplash.com/photo-1667653052149-f4cdc800e9f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600', rating: 4.7, reviews: 156 },
-    { id: 3, name: 'Amla Juice', slug: 'amla-juice', category: 'Juices', price: 249, image: 'https://images.unsplash.com/photo-1759006249055-8c4030a2d56a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600', rating: 4.6, reviews: 98 },
-    { id: 4, name: 'Lemon Pickle', slug: 'lemon-pickle', category: 'Pickles', price: 299, image: 'https://images.unsplash.com/photo-1613271596363-4fb96ef16eac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600', rating: 4.7, reviews: 142 },
+  const searchResults: Product[] = [
+    { id: 1, name: 'Himalayan Mango Pickle', slug: 'himalayan-mango-pickle', category: 'Pickles', description: 'Traditional recipe', inStock: true, price: 349, image: 'https://images.unsplash.com/photo-1562346816-9d0bdd559ec1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600', rating: 4.8, reviews: 124 },
+    { id: 3, name: 'Mixed Fruit Murabba', slug: 'mixed-fruit-murabba', category: 'Murabba', description: 'Sweet fruit preserves', inStock: true, price: 299, image: 'https://images.unsplash.com/photo-1667653052149-f4cdc800e9f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600', rating: 4.7, reviews: 156 },
+    { id: 4, name: 'Amla Juice', slug: 'amla-juice', category: 'Juices', description: 'Cold-pressed', inStock: true, price: 249, image: 'https://images.unsplash.com/photo-1759006249055-8c4030a2d56a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600', rating: 4.6, reviews: 98 },
+    { id: 5, name: 'Lemon Pickle', slug: 'lemon-pickle', category: 'Pickles', description: 'Tangy preserve', inStock: true, price: 299, image: 'https://images.unsplash.com/photo-1613271596363-4fb96ef16eac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600', rating: 4.7, reviews: 142 },
   ];
 
   return (
@@ -50,53 +50,7 @@ export function SearchResultsPage() {
         {searchResults.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {searchResults.map(product => (
-                <Link
-                  to={`/product/${product.slug}`}
-                  key={product.id}
-                  className="group flex flex-col h-full overflow-hidden rounded-[30px] bg-[#fcfbf8] border border-[#ece8df] shadow-[0_8px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] block"
-                >
-                    <div className="h-[240px] shrink-0 w-full relative overflow-hidden">
-                      <ImageWithFallback
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.05]"
-                      />
-                    </div>
-                    <div className="p-6 flex flex-col flex-1">
-                      <div className="mb-3">
-                        <span className="inline-flex items-center px-3 py-1.5 bg-[#f0f4ef] text-[#4a6741] rounded-full text-[11px] font-bold tracking-wide uppercase">
-                          {product.category}
-                        </span>
-                      </div>
-                      <h3 className="font-semibold text-[1.1rem] text-[#2a2a2a] mb-2 leading-snug">{product.name}</h3>
-                      <div className="flex items-center gap-1.5 mb-5">
-                        <div className="flex items-center">
-                          {[...Array(5)].map((_, i) => (
-                            <Star
-                              key={i}
-                              className={`w-3.5 h-3.5 ${
-                                i < Math.floor(product.rating) ? 'fill-[#FFB900] text-[#FFB900]' : 'text-gray-200 fill-gray-200'
-                              }`}
-                            />
-                          ))}
-                        </div>
-                        <span className="text-[12px] font-medium text-[#8b7d6b]">({product.reviews})</span>
-                      </div>
-                      <div className="mt-auto flex items-center justify-between pt-2">
-                        <span className="text-[1.25rem] font-bold text-[#1c3a2b]">₹{product.price}</span>
-                        <RippleButton
-                          className="px-5 py-2.5 bg-[#1c3a2b] hover:bg-[#2a4a3b] text-white rounded-full text-[13px] font-semibold transition-colors duration-300"
-                          onClick={(e: React.MouseEvent) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            console.log('Added to cart:', product.name);
-                          }}
-                        >
-                          Add
-                        </RippleButton>
-                      </div>
-                    </div>
-                </Link>
+              <ProductCard key={product.id} product={product} />
             ))}
           </div>
         ) : (
