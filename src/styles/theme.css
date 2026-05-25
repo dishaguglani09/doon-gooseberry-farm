@@ -246,13 +246,7 @@
     @apply bg-background text-foreground;
     font-family: var(--font-sans);
     text-rendering: optimizeLegibility;
-    cursor: none;
-  }
-
-  @media (max-width: 1024px) {
-    body {
-      cursor: auto;
-    }
+    cursor: default;
   }
 
   button,
@@ -260,17 +254,7 @@
   [role="button"],
   input[type="submit"],
   input[type="button"] {
-    cursor: none;
-  }
-
-  @media (max-width: 1024px) {
-    button,
-    a,
-    [role="button"],
-    input[type="submit"],
-    input[type="button"] {
-      cursor: pointer;
-    }
+    cursor: pointer;
   }
 
   input[type="range"].slider {

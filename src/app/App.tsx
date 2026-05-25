@@ -17,7 +17,6 @@ import { SearchResultsPage } from './pages/SearchResultsPage';
 import { OrderSuccessPage } from './pages/OrderSuccessPage';
 import { FAQPage } from './pages/FAQPage';
 import { AnnouncementBar } from './components/layout/AnnouncementBar';
-import CustomCursor from './components/ui/CustomCursor';
 import { SmoothScroll } from './components/animations/SmoothScroll';
 import { AuthProvider } from './contexts/AuthContext';
 import { WishlistProvider } from './contexts/WishlistContext';
@@ -25,6 +24,7 @@ import { ToastProvider } from './contexts/ToastContext';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { DashboardPage } from './pages/DashboardPage';
 import { WishlistPage } from './pages/WishlistPage';
+
 function AnimatedRoutes() {
   const location = useLocation();
 
@@ -77,7 +77,6 @@ export default function App() {
       <ToastProvider>
         <WishlistProvider>
           <BrowserRouter>
-            <CustomCursor />
             <SmoothScroll />
             <div className="relative min-h-screen bg-[#f5f0e8]">
               <AnnouncementBar />

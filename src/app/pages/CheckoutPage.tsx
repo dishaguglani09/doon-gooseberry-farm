@@ -12,9 +12,9 @@ export function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState<'card' | 'upi' | 'cod'>('card');
 
   const cartItems = [
-    { id: 1, name: 'Himalayan Mango Pickle', price: 349, quantity: 2, icon: Apple },
-    { id: 2, name: 'Organic Honey', price: 499, quantity: 1, icon: Droplet },
-    { id: 3, name: 'Mixed Fruit Murabba', price: 299, quantity: 1, icon: Sparkles },
+    { id: 1, name: 'Himalayan Mango Pickle', price: 349, quantity: 2, image: 'https://images.unsplash.com/photo-1562346816-9d0bdd559ec1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=200' },
+    { id: 2, name: 'Organic Honey', price: 499, quantity: 1, image: 'https://images.unsplash.com/photo-1773957949171-8ccca4580bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=200' },
+    { id: 3, name: 'Mixed Fruit Murabba', price: 299, quantity: 1, image: 'https://images.unsplash.com/photo-1667653052149-f4cdc800e9f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=200' },
   ];
 
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
@@ -234,22 +234,17 @@ export function CheckoutPage() {
               <ScrollReveal delay={0.3}>
                 <div className="glass-card rounded-2xl p-6 sticky top-24 shadow-lg">
                   <h2 className="font-semibold text-xl text-[#2a2a2a] mb-6">Order Summary</h2>
-                <div className="space-y-4 mb-6">
+                <div className="space-y-2 mb-6">
                   {cartItems.map(item => (
-                    <div key={item.id} className="flex items-center gap-3">
-                      <div className="w-16 h-16 bg-gradient-to-br from-[#4a6741] to-[#5a7851] rounded-2xl flex items-center justify-center shrink-0 relative overflow-hidden shadow-lg">
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-br from-[#d4a533]/20 to-transparent"
-                          animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
-                          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                        />
-                        <item.icon className="w-8 h-8 text-white/90 relative z-10" strokeWidth={1.5} />
+                    <div key={item.id} className="group flex items-center gap-4 p-2 -mx-2 rounded-2xl transition-all duration-300 hover:bg-[rgba(0,0,0,0.02)]">
+                      <div className="w-[70px] h-[70px] rounded-[16px] overflow-hidden shrink-0 shadow-[0_4px_12px_rgba(0,0,0,0.08)] bg-white border border-[rgba(139,125,107,0.1)]">
+                        <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-sm text-[#2a2a2a] truncate">{item.name}</p>
-                        <p className="text-sm text-[#6b6560]">Qty: {item.quantity}</p>
+                      <div className="flex-1 min-w-0 flex flex-col justify-center">
+                        <p className="font-semibold text-[15px] text-[#2a2a2a] truncate leading-tight mb-1">{item.name}</p>
+                        <p className="text-[13px] text-[#8a8580]">Qty: {item.quantity}</p>
                       </div>
-                      <p className="font-semibold text-[#2a2a2a]">₹{item.price * item.quantity}</p>
+                      <p className="font-bold text-[#1c3a2b] pl-2 text-[15px]">₹{item.price * item.quantity}</p>
                     </div>
                   ))}
                 </div>

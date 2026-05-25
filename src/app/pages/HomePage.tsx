@@ -393,35 +393,74 @@ export function HomePage() {
       </section>
 
       {/* ─── Categories ──────────────────────────────── */}
-      <section className="py-24 bg-[#f5f0e8]">
-        <div className="container mx-auto px-4">
+      <section 
+        className="py-24 relative overflow-hidden"
+        style={{ background: "linear-gradient(180deg, #f8f5ef, #f3f1ea)" }}
+      >
+        {/* Background Decor - Meaningful Floating Shapes */}
+        <motion.div
+          animate={{ y: [0, -15, 0], opacity: [0.03, 0.05, 0.03] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[10%] left-[5%] w-[400px] h-[400px] bg-[#d4a533] rounded-full blur-[100px] pointer-events-none"
+        />
+        <motion.div
+          animate={{ y: [0, 15, 0], opacity: [0.02, 0.04, 0.02] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          className="absolute bottom-[10%] right-[5%] w-[500px] h-[500px] bg-[#4a6741] rounded-full blur-[120px] pointer-events-none"
+        />
+        
+        {/* Subtle Grain Texture Overlay */}
+        <div className="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuOSIgbnVtT2N0YXZlcz0iNCIgLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbm9pc2UpIiBvcGFjaXR5PSIwLjA4IiAvPjwvc3ZnPg==')] pointer-events-none mix-blend-overlay" />
+
+        <div className="container mx-auto px-6 lg:px-10 relative z-10">
           <ScrollReveal>
-            <div className="text-center mb-14">
+            <div className="text-center mb-16 lg:mb-20">
               <p className="text-[#4a6741] text-sm font-semibold tracking-[0.12em] uppercase mb-3">Browse</p>
-              <h2 className="font-serif text-[clamp(2rem,4vw,3rem)] text-[#1c2a1f]">Shop by Category</h2>
-              <p className="text-[#7a7570] mt-3 max-w-xl mx-auto">
+              <h2 className="font-serif text-[clamp(2.5rem,4vw,3.5rem)] text-[#1c2a1f] tracking-tight mb-4">Shop by Category</h2>
+              <p className="text-[#7a7570] mt-3 max-w-xl mx-auto font-medium">
                 Explore our curated range of organic Himalayan products
               </p>
             </div>
           </ScrollReveal>
 
-          <StaggerChildren className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
             {categories.map((category) => (
               <StaggerItem key={category.slug}>
-                <Link to={`/category/${category.slug}`} className="group flex flex-col h-full overflow-hidden rounded-[30px] bg-[#fcfbf8] border border-[#ece8df] shadow-[0_8px_30px_rgba(0,0,0,0.05)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] block text-center">
-                    <div className="relative overflow-hidden h-[240px] shrink-0 w-full">
-                      <ImageWithFallback
-                        src={category.image}
-                        alt={category.name}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
-                    </div>
-                    <div className="p-6 flex flex-col flex-1 items-center justify-center">
-                      <p className="text-[#d4a533] text-[11px] font-semibold tracking-wider uppercase mb-1.5">{category.tagline}</p>
-                      <h3 className="text-[#1c2a1f] font-serif text-lg font-bold leading-tight mb-1">{category.name}</h3>
-                      <p className="text-[#8a8580] text-[13px] mt-auto font-medium">{category.count} items</p>
-                    </div>
+                <Link 
+                  to={`/category/${category.slug}`} 
+                  className="group relative rounded-[28px] bg-white cursor-pointer flex flex-col aspect-[4/5] overflow-hidden"
+                  style={{
+                    boxShadow: "0 10px 30px rgba(0,0,0,0.06)",
+                    transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-8px) scale(1.01)";
+                    e.currentTarget.style.boxShadow = "0 20px 50px rgba(0,0,0,0.12)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0) scale(1)";
+                    e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.06)";
+                  }}
+                >
+                  <div className="relative flex-grow overflow-hidden">
+                    <ImageWithFallback
+                      src={category.image}
+                      alt={category.name}
+                      className="w-full h-full object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
+                    />
+                    <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-white via-white/40 to-transparent" />
+                  </div>
+                  <div className="bg-white px-6 pt-2 pb-7 flex flex-col items-center text-center relative z-10">
+                    <span className="text-[10px] font-bold tracking-[0.2em] text-[#8a9a86] uppercase mb-2 transition-colors duration-300 group-hover:text-[#d4a533]">
+                      {category.tagline}
+                    </span>
+                    <h3 className="font-serif text-[28px] text-[#1c271b] mb-1.5 transition-colors duration-300">
+                      {category.name}
+                    </h3>
+                    <span className="text-[13px] text-[#9ca399] font-medium tracking-wide">
+                      {category.count} items
+                    </span>
+                  </div>
                 </Link>
               </StaggerItem>
             ))}
