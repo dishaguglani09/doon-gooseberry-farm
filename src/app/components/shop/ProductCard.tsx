@@ -4,6 +4,7 @@ import { Heart, ShoppingBag, Star, Check, Loader2 } from "lucide-react";
 import { Product, useWishlist } from '../../contexts/WishlistContext';
 import { useNavigate } from "react-router";
 import { useToast } from "../../contexts/ToastContext";
+import { useCart } from "../../contexts/CartContext";
 import WishlistButton from "./WishlistButton";
 
 interface ProductCardProps {
@@ -14,6 +15,7 @@ interface ProductCardProps {
 export default function ProductCard({ product, onQuickView }: ProductCardProps) {
   const navigate = useNavigate();
   const { showToast } = useToast();
+  const { addToCart } = useCart();
   
   const [isAdding, setIsAdding] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
@@ -28,7 +30,7 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
     setTimeout(() => {
       setIsAdding(false);
       setIsAdded(true);
-      showToast("Added to cart", "success");
+      addToCart(product);
       
       setTimeout(() => {
         setIsAdded(false);

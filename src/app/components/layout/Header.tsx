@@ -3,12 +3,13 @@ import { Link, useNavigate } from 'react-router';
 import { Search, Heart, User, ShoppingCart, ChevronDown, Menu, X as XIcon, Leaf } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useWishlist } from '../../contexts/WishlistContext';
+import { useCart } from '../../contexts/CartContext';
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
-  const [cartCount] = useState(3);
+  const { cartCount } = useCart();
   const { wishlistItems } = useWishlist();
   const navigate = useNavigate();
 

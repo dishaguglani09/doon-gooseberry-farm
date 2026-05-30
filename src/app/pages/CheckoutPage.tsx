@@ -7,22 +7,20 @@ import { GlowEffect } from '../components/effects/GlowEffect';
 import { RippleButton } from '../components/effects/RippleButton';
 import { ScrollReveal } from '../components/animations/ScrollReveal';
 
+import { useCart } from '../contexts/CartContext';
+
 export function CheckoutPage() {
   const navigate = useNavigate();
   const [paymentMethod, setPaymentMethod] = useState<'card' | 'upi' | 'cod'>('card');
-
-  const cartItems = [
-    { id: 1, name: 'Himalayan Mango Pickle', price: 349, quantity: 2, image: 'https://images.unsplash.com/photo-1562346816-9d0bdd559ec1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=200' },
-    { id: 2, name: 'Organic Honey', price: 499, quantity: 1, image: 'https://images.unsplash.com/photo-1773957949171-8ccca4580bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=200' },
-    { id: 3, name: 'Mixed Fruit Murabba', price: 299, quantity: 1, image: 'https://images.unsplash.com/photo-1667653052149-f4cdc800e9f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=200' },
-  ];
+  const { cartItems, clearCart } = useCart();
 
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const shipping = 0;
+  const shipping = subtotal >= 999 || subtotal === 0 ? 0 : 50;
   const total = subtotal + shipping;
 
   const handlePlaceOrder = (e: React.FormEvent) => {
     e.preventDefault();
+    clearCart();
     navigate('/order-success');
   };
 

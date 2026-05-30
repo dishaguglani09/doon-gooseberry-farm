@@ -1,24 +1,19 @@
-import { useState } from 'react';
 import { Link } from 'react-router';
 import { Minus, Plus, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GlowEffect } from '../components/effects/GlowEffect';
 import { RippleButton } from '../components/effects/RippleButton';
+import { useCart } from '../contexts/CartContext';
 
 export function CartPage() {
-  const [cartItems, setCartItems] = useState([
-    { id: 1, name: 'Himalayan Mango Pickle', price: 349, quantity: 2, image: '/images/mango_pickle.png' },
-    { id: 2, name: 'Organic Honey', price: 499, quantity: 1, image: '/images/organic_honey.png' },
-    { id: 3, name: 'Mixed Fruit Murabba', price: 299, quantity: 1, image: '/images/fruit_murabba.png' },
-  ]);
+  const { cartItems, updateCartQuantity, removeFromCart } = useCart();
 
   const updateQuantity = (id: number, newQuantity: number) => {
-    if (newQuantity < 1) return;
-    setCartItems(items => items.map(item => item.id === id ? { ...item, quantity: newQuantity } : item));
+    updateCartQuantity(id, newQuantity);
   };
 
   const removeItem = (id: number) => {
-    setCartItems(items => items.filter(item => item.id !== id));
+    removeFromCart(id);
   };
 
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { StaggerChildren, StaggerItem } from '../components/animations/StaggerChildren';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { products as allProducts } from '../data/products';
+import { useCart } from '../contexts/CartContext';
 
 export function AllProductsPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -12,6 +13,7 @@ export function AllProductsPage() {
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
   const [sortBy, setSortBy] = useState('featured');
   const [isSortOpen, setIsSortOpen] = useState(false);
+  const { addToCart } = useCart();
 
   const sortOptions = [
     { value: 'featured', label: 'Featured' },
@@ -296,6 +298,7 @@ export function AllProductsPage() {
                             onClick={(e) => {
                               e.preventDefault();
                               e.stopPropagation();
+                              addToCart(product);
                             }}
                             className="flex items-center gap-1.5 px-4 py-2 bg-[#1c3a2b] hover:bg-[#2a4a3b] text-white rounded-full text-xs font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                             whileHover={{ scale: product.inStock ? 1.04 : 1 }}

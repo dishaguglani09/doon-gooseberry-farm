@@ -21,6 +21,7 @@ import { SmoothScroll } from './components/animations/SmoothScroll';
 import { AuthProvider } from './contexts/AuthContext';
 import { WishlistProvider } from './contexts/WishlistContext';
 import { ToastProvider } from './contexts/ToastContext';
+import { CartProvider } from './contexts/CartContext';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { DashboardPage } from './pages/DashboardPage';
 import { WishlistPage } from './pages/WishlistPage';
@@ -76,17 +77,19 @@ export default function App() {
     <AuthProvider>
       <ToastProvider>
         <WishlistProvider>
-          <BrowserRouter>
-            <SmoothScroll />
-            <div className="relative min-h-screen bg-[#f5f0e8]">
-              <AnnouncementBar />
-              <Header />
-              <main className="relative">
-                <AnimatedRoutes />
-              </main>
-              <Footer />
-            </div>
-          </BrowserRouter>
+          <CartProvider>
+            <BrowserRouter>
+              <SmoothScroll />
+              <div className="relative min-h-screen bg-[#f5f0e8]">
+                <AnnouncementBar />
+                <Header />
+                <main className="relative">
+                  <AnimatedRoutes />
+                </main>
+                <Footer />
+              </div>
+            </BrowserRouter>
+          </CartProvider>
         </WishlistProvider>
       </ToastProvider>
     </AuthProvider>

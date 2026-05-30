@@ -11,6 +11,7 @@ import { getProductBySlug, getRelatedProducts } from '../data/products';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { useWishlist } from '../contexts/WishlistContext';
 import { useToast } from '../contexts/ToastContext';
+import { useCart } from '../contexts/CartContext';
 import ProductCard from '../components/shop/ProductCard';
 
 export function ProductDetailPage() {
@@ -19,6 +20,7 @@ export function ProductDetailPage() {
   const [quantity, setQuantity] = useState(1);
   const { toggleWishlist, isInWishlist } = useWishlist();
   const { showToast } = useToast();
+  const { addToCart } = useCart();
 
   // Load product from database based on slug
   const product = getProductBySlug(productSlug || '');
@@ -162,7 +164,7 @@ export function ProductDetailPage() {
                 
                 <motion.button 
                   className="flex-1 px-8 h-[52px] bg-gradient-to-r from-[#1c3a2b] to-[#2a4a3b] text-white rounded-full font-semibold text-[15px] shadow-[0_4px_20px_rgba(28,58,43,0.2)] transition-all duration-400 ease-out hover:-translate-y-[2px] hover:shadow-[0_8px_30px_rgba(28,58,43,0.3)] hover:brightness-105 active:scale-[0.98]"
-                  onClick={() => showToast('Added to cart successfully!', 'success')}
+                  onClick={() => addToCart(product, quantity)}
                 >
                   Add to Cart
                 </motion.button>
